@@ -1,0 +1,93 @@
+import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
+import { Zap } from "lucide-react"
+import { COMPANY_INFO } from "@/lib/constants"
+
+export function Hero() {
+  const scrollToContact = () => {
+    const element = document.getElementById("contact")
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" })
+    }
+  }
+
+  const scrollToCaseStudies = () => {
+    const element = document.getElementById("case-studies")
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" })
+    }
+  }
+
+  return (
+    <section className="relative gradient-hero section-padding">
+      <div className="container">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <div className="mb-6">
+              <Badge variant="secondary" className="mb-4">
+                <Zap className="w-4 h-4 mr-2" />
+                Trusted by Fortune 500 Companies
+              </Badge>
+            </div>
+            
+            <h1 className="text-4xl lg:text-6xl font-bold text-foreground mb-6">
+              Transform Your Enterprise with{" "}
+              <span className="text-gradient">Strategic Technology</span>
+            </h1>
+            
+            <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
+              We help Fortune 500 companies accelerate digital transformation, optimize cloud infrastructure, 
+              and harness AI to drive measurable business outcomes. 25+ years of proven results.
+            </p>
+            
+            {/* Key Stats */}
+            <div className="grid grid-cols-3 gap-6 mb-8">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-primary">500+</div>
+                <div className="text-sm text-muted-foreground">Projects Delivered</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-secondary">$2.8B</div>
+                <div className="text-sm text-muted-foreground">Client Savings</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-primary">98%</div>
+                <div className="text-sm text-muted-foreground">Client Retention</div>
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Button size="lg" onClick={scrollToContact}>
+                Book Strategy Call
+              </Button>
+              <Button variant="outline" size="lg" onClick={scrollToCaseStudies}>
+                View Case Studies
+              </Button>
+            </div>
+          </div>
+          
+          <div className="relative">
+            <img 
+              src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600" 
+              alt="Professional consulting team discussing strategy" 
+              className="rounded-2xl shadow-2xl w-full h-auto" 
+            />
+            
+            {/* Floating stats card */}
+            <div className="absolute -bottom-6 -left-6 bg-card rounded-xl shadow-xl p-6 border">
+              <div className="flex items-center space-x-4">
+                <div className="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center">
+                  <Zap className="w-6 h-6 text-secondary" />
+                </div>
+                <div>
+                  <div className="text-2xl font-bold text-foreground">28%</div>
+                  <div className="text-sm text-muted-foreground">Avg Cost Reduction</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
