@@ -1,23 +1,27 @@
-import { defineConfig } from "vite";
+import { defineConfig, type PluginOption } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
 
 export default defineConfig(async ({ mode }) => {
   const isProduction = mode === 'production';
 
-  const plugins = [react()];
+  const plugins: PluginOption[] = [react()];
 
   // Conditionally add development-only plugins
   if (!isProduction) {
     try {
-      const dyadComponentTagger = (await import('@dyad-sh/react-vite-component-tagger')).default;
-      const runtimeErrorOverlay = (await import('@replit/vite-plugin-runtime-error-modal')).default;
-      plugins.push(dyadComponentTagger(), runtimeErrorOverlay());
+      const { default: dyadComponentTagger } = await import('@dyad-sh/react-vite-component-tagger');
+      const { default: runtimeErrorOverlay } = await import('@replit/vite-plugin-runtime-error-modal');
+      
+      const devPlugins: PluginOption[] = [dyadComponentTagger(), runtimeErrorOverlay()];
 
       if (process.env.REPL_ID) {
         const { cartographer } = await import("@replit/vite-plugin-cartographer");
-        plugins.push(cartographer());
+        devPlugins.push(cartographer());
       }
+      
+      plugins.push(...devPlugins);
+
     } catch (e) {
       console.log("Could not load dev plugins", e);
     }
