@@ -1,3 +1,4 @@
+import { Link } from "wouter"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -47,16 +48,20 @@ export function CaseStudies() {
                   ))}
                 </div>
                 
-                <Button variant="ghost" className="text-primary hover:underline p-0">
-                  Read Full Case Study →
-                </Button>
+                <Link href={`/case-studies/${study.slug}`}>
+                  <Button variant="ghost" className="text-primary hover:underline p-0">
+                    Read Full Case Study →
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
           ))}
         </div>
 
         <div className="text-center mt-12">
-          <Button size="lg">View All Case Studies</Button>
+          <Link href="/case-studies">
+            <Button size="lg">View All Case Studies</Button>
+          </Link>
         </div>
       </div>
     </section>

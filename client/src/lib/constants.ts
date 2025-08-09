@@ -86,36 +86,84 @@ export const INDUSTRIES = [
 export const CASE_STUDIES = [
   {
     id: "global-bank-transformation",
+    slug: "global-bank-cloud-transformation",
     title: "Global Bank Reduces Infrastructure Costs by 45%",
     industry: "Financial Services",
     description: "Complete cloud migration and modernization of core banking systems for a Fortune 100 financial institution.",
-    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=300",
+    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=600",
     metrics: [
       { label: "Cost Reduction", value: "45%" },
       { label: "Uptime SLA", value: "99.99%" }
-    ]
+    ],
+    content: `
+      <p class="lead">A Fortune 100 financial institution faced escalating infrastructure costs and operational inefficiencies with its legacy, on-premise data centers. The bank needed to modernize its core banking systems to improve agility, reduce costs, and enhance security and compliance.</p>
+      <h3>The Challenge</h3>
+      <p>The primary challenges included high capital expenditures on hardware, slow deployment cycles for new services, and the inability to scale resources dynamically to meet fluctuating market demands. The existing infrastructure was also a bottleneck for adopting modern DevOps practices and AI-driven analytics.</p>
+      <h3>Our Solution</h3>
+      <p>QvalFocus devised a multi-phase cloud transformation strategy focused on migrating the bank's critical applications to a hybrid cloud environment. Our solution included:</p>
+      <ul>
+        <li><strong>Cloud Readiness Assessment:</strong> A thorough analysis of over 500 applications to determine migration priority and methodology (Re-host, Re-platform, Re-factor).</li>
+        <li><strong>Platform Engineering:</strong> We built a secure and compliant landing zone on AWS, incorporating infrastructure-as-code (IaC) with Terraform and a CI/CD pipeline with Jenkins and GitLab.</li>
+        <li><strong>Application Modernization:</strong> Key monolithic applications were re-architected into microservices and containerized using Docker and Kubernetes, enabling greater scalability and resilience.</li>
+        <li><strong>Cost Optimization:</strong> We implemented a FinOps framework with real-time cost monitoring, reserved instance planning, and automated rightsizing, leading to significant and sustained cost savings.</li>
+      </ul>
+      <h3>The Results</h3>
+      <p>The transformation delivered substantial business value within 24 months. The 45% reduction in infrastructure costs translated to over $200 million in annual savings. The move to a 99.99% uptime SLA drastically reduced service disruptions, and the agile development environment cut the time-to-market for new financial products by 60%.</p>
+    `
   },
   {
     id: "hospital-ai-implementation",
+    slug: "hospital-network-ai-patient-care",
     title: "Hospital Network Accelerates Patient Care with AI",
     industry: "Healthcare", 
     description: "AI-powered diagnostic platform and EHR integration across 50+ hospital locations.",
-    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=300",
+    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=600",
     metrics: [
       { label: "Faster Diagnosis", value: "60%" },
       { label: "Locations", value: "50+" }
-    ]
+    ],
+    content: `
+      <p class="lead">A major hospital network sought to improve the speed and accuracy of patient diagnoses while streamlining clinical workflows. Their existing Electronic Health Record (EHR) system lacked advanced analytical capabilities, leading to delays and administrative overhead.</p>
+      <h3>The Challenge</h3>
+      <p>The key challenge was to integrate a sophisticated AI diagnostic tool with their legacy EHR system across more than 50 hospital and clinic locations, all while ensuring strict HIPAA compliance and data security. The solution needed to be intuitive for clinicians and provide measurable improvements in patient outcomes.</p>
+      <h3>Our Solution</h3>
+      <p>Our team of healthcare technology experts developed and deployed a custom AI-powered diagnostic platform. The project involved:</p>
+      <ul>
+        <li><strong>HIPAA-Compliant Architecture:</strong> We designed a secure data pipeline on a private cloud to process sensitive patient data, ensuring full compliance with healthcare regulations.</li>
+        <li><strong>EHR Integration:</strong> We developed custom APIs to seamlessly integrate the AI platform with the network's existing EHR system, allowing for real-time data exchange.</li>
+        <li><strong>Machine Learning Models:</strong> We trained and validated machine learning models on anonymized data to assist radiologists and pathologists in identifying conditions from medical imaging with greater accuracy.</li>
+        <li><strong>Clinician Training:</strong> We conducted comprehensive training sessions for over 1,000 medical staff to ensure smooth adoption and effective use of the new platform.</li>
+      </ul>
+      <h3>The Results</h3>
+      <p>The new platform transformed the diagnostic process across the hospital network. It led to a 60% reduction in the average time to diagnosis for critical conditions. The system's integration into existing workflows was seamless, and it now supports over 50 locations, improving the quality of care for thousands of patients daily.</p>
+    `
   },
   {
     id: "smart-factory-transformation",
+    slug: "smart-factory-iot-efficiency",
     title: "Smart Factory Transformation Increases Efficiency 40%",
     industry: "Manufacturing",
     description: "IoT sensors, predictive maintenance, and real-time analytics across global manufacturing operations.",
-    image: "https://images.unsplash.com/photo-1565514020179-026b92b84bb6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=300",
+    image: "https://images.unsplash.com/photo-1565514020179-026b92b84bb6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=600",
     metrics: [
       { label: "Efficiency Gain", value: "40%" },
       { label: "Less Downtime", value: "85%" }
-    ]
+    ],
+    content: `
+      <p class="lead">A global leader in industrial manufacturing was facing increased competition and rising operational costs. Their traditional manufacturing processes lacked real-time visibility, leading to unexpected equipment downtime and inefficiencies in the supply chain.</p>
+      <h3>The Challenge</h3>
+      <p>The goal was to implement an Industry 4.0 solution across their global operations to create a 'smart factory' ecosystem. This required integrating thousands of IoT devices, collecting massive amounts of data, and turning that data into actionable insights for predictive maintenance and process optimization.</p>
+      <h3>Our Solution</h3>
+      <p>QvalFocus implemented an end-to-end IoT and data analytics solution. Key components of our approach were:</p>
+      <ul>
+        <li><strong>IoT Sensor Deployment:</strong> We retrofitted existing machinery with over 10,000 IoT sensors to collect data on temperature, vibration, and performance.</li>
+        <li><strong>Data Platform on Azure:</strong> We built a scalable data lake and analytics platform using Azure IoT Hub, Azure Data Factory, and Databricks to process and analyze the incoming data streams.</li>
+        <li><strong>Predictive Maintenance Models:</strong> Our data scientists developed machine learning models that could predict equipment failure with 95% accuracy, allowing for proactive maintenance.</li>
+        <li><strong>Real-Time Dashboards:</strong> We created interactive Power BI dashboards for plant managers to monitor production lines in real-time, identify bottlenecks, and optimize output.</li>
+      </ul>
+      <h3>The Results</h3>
+      <p>The smart factory initiative yielded remarkable results. Overall equipment effectiveness (OEE) increased by 40%, and unplanned downtime was reduced by an incredible 85%. The real-time analytics provided by the new platform empowered the company to make smarter, data-driven decisions, solidifying their position as an industry innovator.</p>
+    `
   }
 ]
 

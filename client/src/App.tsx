@@ -6,6 +6,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import Home from "@/pages/Home";
 import India from "@/pages/India";
+import CaseStudiesPage from "@/pages/CaseStudiesPage";
+import CaseStudyDetailPage from "@/pages/CaseStudyDetailPage";
 import NotFound from "@/pages/not-found";
 import { CookieConsentBanner } from "@/components/layout/CookieConsentBanner";
 
@@ -14,6 +16,8 @@ function Router() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/in" component={India} />
+      <Route path="/case-studies" component={CaseStudiesPage} />
+      <Route path="/case-studies/:slug" component={CaseStudyDetailPage} />
       <Route component={NotFound} />
     </Switch>
   );
