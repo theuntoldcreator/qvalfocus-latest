@@ -78,9 +78,9 @@ export function Header() {
   }
 
   return (
-    <header className="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
+    <header className="gradient-hero sticky top-0 z-50">
       {/* Top Bar */}
-      <div className="border-b bg-background/80">
+      <div className="border-b">
         <div className="container hidden h-12 items-center justify-end md:flex">
           <div className="flex items-center space-x-6 text-sm">
             <TopBarItems
