@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Link } from "wouter"
+import { Link, useLocation } from "wouter"
 import { Menu, ChevronDown, Search, Globe } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/ui/theme-toggle"
@@ -17,11 +17,11 @@ import { SERVICES } from "@/lib/constants"
 const TopBarItems = ({
   onLinkClick,
   selectedCountry,
-  setSelectedCountry,
+  onCountryChange,
 }: {
   onLinkClick: (id: string) => void
   selectedCountry: string
-  setSelectedCountry: (country: string) => void
+  onCountryChange: (country: string) => void
 }) => {
   return (
     <>
@@ -55,8 +55,8 @@ const TopBarItems = ({
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem onSelect={() => setSelectedCountry("USA")}>USA</DropdownMenuItem>
-          <DropdownMenuItem onSelect={() => setSelectedCountry("India")}>India</DropdownMenuItem>
+          <DropdownMenuItem onSelect={() => onCountryChange("USA")}>USA</DropdownMenuItem>
+          <DropdownMenuItem onSelect={() => onCountryChange("India")}>India</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </>
@@ -65,7 +65,18 @@ const TopBarItems = ({
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [selectedCountry, setSelectedCountry] = useState("USA")
+  const [location, setLocation] = useLocation()
+
+  const selectedCountry = location === '/in' ? 'India' : 'USA'
+
+  const handleCountryChange = (country: string) => {
+    if (country === 'India') {
+      setLocation('/in')
+    } else {
+      setLocation('/')
+    }
+    setMobileMenuOpen(false)
+  }
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId)
@@ -84,7 +95,7 @@ export function Header() {
             <TopBarItems
               onLinkClick={scrollToSection}
               selectedCountry={selectedCountry}
-              setSelectedCountry={setSelectedCountry}
+              onCountryChange={handleCountryChange}
             />
             <ThemeToggle />
           </div>
@@ -153,7 +164,7 @@ export function Header() {
                     <TopBarItems
                       onLinkClick={scrollToSection}
                       selectedCountry={selectedCountry}
-                      setSelectedCountry={setSelectedCountry}
+                      onCountryChange={handleCountryChange}
                     />
                   </div>
                 </div>
