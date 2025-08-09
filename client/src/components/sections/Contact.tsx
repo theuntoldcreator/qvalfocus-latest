@@ -199,7 +199,7 @@ export function Contact() {
                             <FormControl>
                               <SelectTrigger>
                                 <SelectValue placeholder="Select budget range" />
-                              </T rig ger>
+                              </SelectTrigger>
                             </FormControl>
                             <SelectContent>
                               <SelectItem value="100k-500k">$100K - $500K</SelectItem>
