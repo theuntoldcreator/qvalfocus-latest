@@ -35,9 +35,9 @@ export function Footer() {
             <ul className="space-y-4 text-gray-300">
               {SERVICES.slice(0, 6).map((service) => (
                 <li key={service.id}>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <Link href="/#services" className="hover:text-white transition-colors">
                     {service.title}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -49,9 +49,9 @@ export function Footer() {
             <ul className="space-y-4 text-gray-300">
               {INDUSTRIES.map((industry) => (
                 <li key={industry.id}>
-                  <a href="#" className="hover:text-white transition-colors">
+                  <Link href="/#industries" className="hover:text-white transition-colors">
                     {industry.title}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -61,11 +61,11 @@ export function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-6">Company</h3>
             <ul className="space-y-4 text-gray-300">
-              <li><a href="#" className="hover:text-white transition-colors">About Us</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Leadership</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">News & Insights</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
+              <li><Link href="/about" className="hover:text-white transition-colors">About Us</Link></li>
+              <li><Link href="/about#leadership" className="hover:text-white transition-colors">Leadership</Link></li>
+              <li><Link href="/careers" className="hover:text-white transition-colors">Careers</Link></li>
+              <li><Link href="/insights" className="hover:text-white transition-colors">News & Insights</Link></li>
+              <li><Link href="/#contact" className="hover:text-white transition-colors">Contact</Link></li>
               <li><a href="#" className="hover:text-white transition-colors">Partner Program</a></li>
             </ul>
           </div>

@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Check } from "lucide-react"
 import { COMPANY_INFO } from "@/lib/constants"
+import { Link } from "wouter"
 
 export function About() {
   return (
@@ -60,7 +61,9 @@ export function About() {
               </div>
             </div>
 
-            <Button size="lg">Learn More About Us</Button>
+            <Link href="/about">
+              <Button size="lg">Learn More About Us</Button>
+            </Link>
           </div>
 
           <div className="relative">

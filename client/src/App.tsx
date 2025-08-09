@@ -11,6 +11,7 @@ import { PageLoader } from "@/components/common/PageLoader";
 
 const Home = lazy(() => import("@/pages/Home"));
 const India = lazy(() => import("@/pages/India"));
+const AboutPage = lazy(() => import("@/pages/AboutPage"));
 const CaseStudiesPage = lazy(() => import("@/pages/CaseStudiesPage"));
 const CaseStudyDetailPage = lazy(() => import("@/pages/CaseStudyDetailPage"));
 const InsightsPage = lazy(() => import("@/pages/InsightsPage"));
@@ -23,6 +24,7 @@ function Router() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/in" component={India} />
+      <Route path="/about" component={AboutPage} />
       <Route path="/case-studies" component={CaseStudiesPage} />
       <Route path="/case-studies/:slug" component={CaseStudyDetailPage} />
       <Route path="/insights" component={InsightsPage} />

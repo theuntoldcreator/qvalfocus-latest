@@ -101,7 +101,7 @@ export function Header() {
 
         {/* Desktop Navigation */}
         <div className="hidden items-center space-x-6 md:flex">
-          <Button asChild variant="ghost"><Link href={`${homePath}#about`}>About Us</Link></Button>
+          <Button asChild variant="ghost"><Link href="/about">About Us</Link></Button>
           <Button asChild variant="ghost"><Link href={`${homePath}#services`}>Information Technology</Link></Button>
           <Button asChild variant="ghost"><Link href={`${homePath}#industries`}>Life Sciences</Link></Button>
           <Button asChild variant="ghost"><Link href="/insights">Insights</Link></Button>
@@ -134,7 +134,7 @@ export function Header() {
                 </div>
                 <div className="flex-1 p-4">
                   <div className="flex flex-col space-y-2">
-                    <Button asChild variant="ghost" className="justify-start"><Link href={`${homePath}#about`}>About Us</Link></Button>
+                    <Button asChild variant="ghost" className="justify-start"><Link href="/about">About Us</Link></Button>
                     <Button asChild variant="ghost" className="justify-start"><Link href={`${homePath}#services`}>Information Technology</Link></Button>
                     <Button asChild variant="ghost" className="justify-start"><Link href={`${homePath}#industries`}>Life Sciences</Link></Button>
                     <Button asChild variant="ghost" className="justify-start"><Link href="/insights">Insights</Link></Button>
