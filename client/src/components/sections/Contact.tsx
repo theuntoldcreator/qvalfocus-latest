@@ -6,10 +6,8 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Checkbox } from "@/components/ui/checkbox"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Mail, Phone, MapPin, CheckCircle } from "lucide-react"
+import { Mail, Phone, CheckCircle } from "lucide-react"
 import { COMPANY_INFO, OFFICE_LOCATIONS } from "@/lib/constants"
 import { useToast } from "@/hooks/use-toast"
 
@@ -17,13 +15,10 @@ const contactFormSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters"),
   lastName: z.string().min(2, "Last name must be at least 2 characters"),
   email: z.string().email("Invalid email address"),
+  phone: z.string().optional(),
   company: z.string().min(2, "Company name must be at least 2 characters"),
-  interest: z.string().min(1, "Please select a service area"),
-  budget: z.string().optional(),
-  message: z.string().optional(),
-  consent: z.boolean().refine((val) => val === true, {
-    message: "You must agree to be contacted"
-  }),
+  role: z.string().optional(),
+  help: z.string().min(10, "Please tell us a bit more about how we can help."),
   website: z.string().optional() // Honeypot field
 })
 
@@ -39,32 +34,27 @@ export function Contact() {
       firstName: "",
       lastName: "",
       email: "",
+      phone: "",
       company: "",
-      interest: "",
-      budget: "",
-      message: "",
-      consent: false,
+      role: "",
+      help: "",
       website: ""
     }
   })
 
   const onSubmit = async (data: ContactFormData) => {
-    // Check honeypot
     if (data.website) {
       return // Likely spam
     }
 
     try {
-      // TODO: Implement actual form submission to API/CRM
       console.log("Form submitted:", data)
-      
-      // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000))
       
       setIsSubmitted(true)
       toast({
-        title: "Thank you for your interest!",
-        description: "We'll be in touch within 24 hours to schedule your strategy consultation."
+        title: "Thanks for reaching out!",
+        description: "We've received your message and will be in touch shortly."
       })
     } catch (error) {
       toast({
@@ -80,11 +70,10 @@ export function Contact() {
       <div className="container">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-foreground mb-4">
-            Let's Transform Your Enterprise
+            We're here to help.
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Schedule a strategic consultation to discuss your technology transformation goals and explore 
-            how we can accelerate your digital journey.
+            We'd love to start a conversation. Fill out the form and we'll connect you with the right person.
           </p>
         </div>
 
@@ -92,13 +81,12 @@ export function Contact() {
           {/* Contact Form */}
           <Card>
             <CardHeader>
-              <CardTitle className="text-2xl">Book Your Strategy Call</CardTitle>
+              <CardTitle className="text-2xl">Get in Touch</CardTitle>
             </CardHeader>
             <CardContent>
               {!isSubmitted ? (
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                    {/* Honeypot field */}
                     <Input
                       {...form.register("website")}
                       style={{ display: "none" }}
@@ -135,121 +123,78 @@ export function Contact() {
                       />
                     </div>
                     
-                    <FormField
-                      control={form.control}
-                      name="email"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Work Email *</FormLabel>
-                          <FormControl>
-                            <Input placeholder="john.smith@company.com" type="email" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    
-                    <FormField
-                      control={form.control}
-                      name="company"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Company *</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Acme Corporation" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    
-                    <FormField
-                      control={form.control}
-                      name="interest"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Primary Interest *</FormLabel>
-                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <FormField
+                        control={form.control}
+                        name="email"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Email *</FormLabel>
                             <FormControl>
-                              <SelectTrigger>
-                                <SelectValue placeholder="Select a service area" />
-                              </SelectTrigger>
+                              <Input placeholder="john.smith@company.com" type="email" {...field} />
                             </FormControl>
-                            <SelectContent>
-                              <SelectItem value="digital-transformation">Digital Transformation Strategy</SelectItem>
-                              <SelectItem value="cloud-migration">Cloud Migration & Modernization</SelectItem>
-                              <SelectItem value="data-analytics">Data Analytics & AI</SelectItem>
-                              <SelectItem value="cybersecurity">Cybersecurity & Compliance</SelectItem>
-                              <SelectItem value="automation">Process Automation</SelectItem>
-                              <SelectItem value="other">Other / Multiple Areas</SelectItem>
-                            </SelectContent>
-                          </Select>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    
-                    <FormField
-                      control={form.control}
-                      name="budget"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Project Budget Range</FormLabel>
-                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="phone"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Phone</FormLabel>
                             <FormControl>
-                              <SelectTrigger>
-                                <SelectValue placeholder="Select budget range" />
-                              </SelectTrigger>
+                              <Input placeholder="(123) 456-7890" type="tel" {...field} />
                             </FormControl>
-                            <SelectContent>
-                              <SelectItem value="100k-500k">$100K - $500K</SelectItem>
-                              <SelectItem value="500k-1m">$500K - $1M</SelectItem>
-                              <SelectItem value="1m-5m">$1M - $5M</SelectItem>
-                              <SelectItem value="5m+">$5M+</SelectItem>
-                              <SelectItem value="exploratory">Exploratory / TBD</SelectItem>
-                            </SelectContent>
-                          </Select>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <FormField
+                        control={form.control}
+                        name="company"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Company *</FormLabel>
+                            <FormControl>
+                              <Input placeholder="Acme Corporation" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="role"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Role</FormLabel>
+                            <FormControl>
+                              <Input placeholder="e.g., CTO, Project Manager" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
                     
                     <FormField
                       control={form.control}
-                      name="message"
+                      name="help"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Tell us about your project goals and timeline</FormLabel>
+                          <FormLabel>What Can We Help with? *</FormLabel>
                           <FormControl>
                             <Textarea 
-                              placeholder="Describe your transformation goals, key challenges, and preferred timeline..." 
+                              placeholder="Tell us about your project, goals, and challenges..." 
                               rows={4}
                               {...field}
                             />
                           </FormControl>
                           <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-
-                    <FormField
-                      control={form.control}
-                      name="consent"
-                      render={({ field }) => (
-                        <FormItem className="flex flex-row items-start space-x-3 space-y-0">
-                          <FormControl>
-                            <Checkbox
-                              checked={field.value}
-                              onCheckedChange={field.onChange}
-                            />
-                          </FormControl>
-                          <div className="space-y-1 leading-none">
-                            <FormLabel className="text-sm text-muted-foreground">
-                              I consent to QvalFocus contacting me about relevant services and insights. 
-                              You can unsubscribe at any time. *
-                            </FormLabel>
-                            <FormMessage />
-                          </div>
                         </FormItem>
                       )}
                     />
@@ -260,7 +205,7 @@ export function Contact() {
                       size="lg"
                       disabled={form.formState.isSubmitting}
                     >
-                      {form.formState.isSubmitting ? "Submitting..." : "Schedule Strategy Call"}
+                      {form.formState.isSubmitting ? "Submitting..." : "Submit"}
                     </Button>
                   </form>
                 </Form>
@@ -269,8 +214,8 @@ export function Contact() {
                   <div className="flex items-center">
                     <CheckCircle className="w-6 h-6 text-secondary mr-3" />
                     <div>
-                      <h4 className="text-lg font-semibold text-foreground">Thank you for your interest!</h4>
-                      <p className="text-muted-foreground">We'll be in touch within 24 hours to schedule your strategy consultation.</p>
+                      <h4 className="text-lg font-semibold text-foreground">Thanks for reaching out!</h4>
+                      <p className="text-muted-foreground">We've received your message and will be in touch shortly.</p>
                     </div>
                   </div>
                 </div>

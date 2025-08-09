@@ -66,7 +66,7 @@ app.use((req, res, next) => {
   if (portArgIndex > -1 && process.argv[portArgIndex + 1]) {
     port = parseInt(process.argv[portArgIndex + 1], 10);
   } else {
-    port = parseInt(process.env.PORT || '5000', 10);
+    port = parseInt(process.env.PORT || '32100', 10);
   }
 
   server.listen({
