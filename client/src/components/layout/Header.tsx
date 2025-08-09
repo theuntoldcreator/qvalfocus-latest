@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Link } from "wouter"
-import { Menu, X, ChevronDown } from "lucide-react"
+import { Menu, ChevronDown, Search, Globe } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/ui/theme-toggle"
 import {
@@ -10,10 +10,62 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { COMPANY_INFO, SERVICES } from "@/lib/constants"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input"
+import { SERVICES } from "@/lib/constants"
+
+const TopBarItems = ({
+  onLinkClick,
+  selectedCountry,
+  setSelectedCountry,
+}: {
+  onLinkClick: (id: string) => void
+  selectedCountry: string
+  setSelectedCountry: (country: string) => void
+}) => {
+  return (
+    <>
+      <Button variant="link" className="text-muted-foreground hover:text-foreground p-0 h-auto" size="sm" onClick={() => onLinkClick("contact")}>
+        Contact
+      </Button>
+
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button variant="link" className="text-muted-foreground hover:text-foreground flex items-center gap-1 p-0 h-auto" size="sm">
+            <Search className="w-4 h-4" />
+            Search
+          </Button>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Search Site</DialogTitle>
+          </DialogHeader>
+          <div className="flex items-center space-x-2">
+            <Input placeholder="e.g., Cloud Migration" />
+            <Button type="submit">Search</Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="outline" size="sm" className="flex items-center gap-2">
+            <Globe className="w-4 h-4" />
+            <span>{selectedCountry}</span>
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuItem onSelect={() => setSelectedCountry("USA")}>USA</DropdownMenuItem>
+          <DropdownMenuItem onSelect={() => setSelectedCountry("India")}>India</DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </>
+  )
+}
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [selectedCountry, setSelectedCountry] = useState("USA")
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId)
@@ -24,15 +76,30 @@ export function Header() {
   }
 
   return (
-    <header className="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm border-b sticky top-0 z-50">
-      <nav className="container flex justify-between items-center h-16">
+    <header className="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
+      {/* Top Bar */}
+      <div className="border-b bg-background/80">
+        <div className="container hidden h-12 items-center justify-end md:flex">
+          <div className="flex items-center space-x-6 text-sm">
+            <TopBarItems
+              onLinkClick={scrollToSection}
+              selectedCountry={selectedCountry}
+              setSelectedCountry={setSelectedCountry}
+            />
+            <ThemeToggle />
+          </div>
+        </div>
+      </div>
+
+      {/* Main Navigation */}
+      <nav className="container flex h-20 items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center">
-          <img src="/images/qvalfocus.png" alt="QvalFocus Logo" className="h-8 w-auto dark:brightness-0 dark:invert" />
+          <img src="/images/qvalfocus.png" alt="QvalFocus Logo" className="h-9 w-auto dark:brightness-0 dark:invert" />
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center space-x-8">
+        <div className="hidden items-center space-x-8 md:flex">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="flex items-center space-x-1">
@@ -52,52 +119,71 @@ export function Header() {
           <Button variant="ghost" onClick={() => scrollToSection("industries")}>
             Industries
           </Button>
-          <Button variant="ghost" onClick={() => scrollToSection("case-studies")}>
-            Case Studies
+          <Button variant="ghost" onClick={() => { /* Placeholder */ }}>
+            Partnerships
           </Button>
           <Button variant="ghost" onClick={() => scrollToSection("insights")}>
             Insights
           </Button>
+          <Button variant="ghost" onClick={() => { /* Placeholder */ }}>
+            Careers
+          </Button>
           <Button variant="ghost" onClick={() => scrollToSection("about")}>
-            About
+            About Us
           </Button>
         </div>
 
-        {/* CTA and Theme Toggle */}
-        <div className="flex items-center space-x-4">
-          <ThemeToggle />
-          <Button onClick={() => scrollToSection("contact")} className="hidden sm:inline-flex">
-            Book Strategy Call
-          </Button>
-
-          {/* Mobile menu */}
+        {/* Mobile menu */}
+        <div className="flex items-center md:hidden">
           <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden">
+              <Button variant="ghost" size="icon">
                 <Menu className="h-6 w-6" />
                 <span className="sr-only">Toggle menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[300px]">
-              <div className="flex flex-col space-y-4 mt-8">
-                <Button variant="ghost" className="justify-start" onClick={() => scrollToSection("services")}>
-                  Services
-                </Button>
-                <Button variant="ghost" className="justify-start" onClick={() => scrollToSection("industries")}>
-                  Industries
-                </Button>
-                <Button variant="ghost" className="justify-start" onClick={() => scrollToSection("case-studies")}>
-                  Case Studies
-                </Button>
-                <Button variant="ghost" className="justify-start" onClick={() => scrollToSection("insights")}>
-                  Insights
-                </Button>
-                <Button variant="ghost" className="justify-start" onClick={() => scrollToSection("about")}>
-                  About
-                </Button>
-                <Button onClick={() => scrollToSection("contact")} className="w-full">
-                  Book Strategy Call
-                </Button>
+            <SheetContent side="right" className="w-[300px] p-0">
+              <div className="flex h-full flex-col">
+                <div className="border-b p-4">
+                  <div className="flex items-center justify-between">
+                    <span className="font-semibold">Location & Settings</span>
+                    <ThemeToggle />
+                  </div>
+                  <div className="mt-4 flex items-center justify-between">
+                    <TopBarItems
+                      onLinkClick={scrollToSection}
+                      selectedCountry={selectedCountry}
+                      setSelectedCountry={setSelectedCountry}
+                    />
+                  </div>
+                </div>
+                <div className="flex-1 p-4">
+                  <div className="flex flex-col space-y-2">
+                    <Button variant="ghost" className="justify-start" onClick={() => scrollToSection("services")}>
+                      Services
+                    </Button>
+                    <Button variant="ghost" className="justify-start" onClick={() => scrollToSection("industries")}>
+                      Industries
+                    </Button>
+                    <Button variant="ghost" className="justify-start" onClick={() => { /* Placeholder */ }}>
+                      Partnerships
+                    </Button>
+                    <Button variant="ghost" className="justify-start" onClick={() => scrollToSection("insights")}>
+                      Insights
+                    </Button>
+                    <Button variant="ghost" className="justify-start" onClick={() => { /* Placeholder */ }}>
+                      Careers
+                    </Button>
+                    <Button variant="ghost" className="justify-start" onClick={() => scrollToSection("about")}>
+                      About Us
+                    </Button>
+                  </div>
+                </div>
+                <div className="border-t p-4">
+                  <Button onClick={() => scrollToSection("contact")} className="w-full">
+                    Book Strategy Call
+                  </Button>
+                </div>
               </div>
             </SheetContent>
           </Sheet>
