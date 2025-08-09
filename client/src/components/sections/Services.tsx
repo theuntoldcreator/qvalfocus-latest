@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Check, Zap, Cloud, BarChart3, Shield } from "lucide-react"
+import { Check, Zap, Cloud, BarChart3, Shield, Package, Server, ClipboardCheck, Stamp } from "lucide-react"
 import { SERVICES } from "@/lib/constants"
 
 const serviceIcons = {
@@ -9,6 +9,10 @@ const serviceIcons = {
   "cloud-engineering": Cloud,
   "data-analytics": BarChart3,
   "cybersecurity": Shield,
+  "product-engineering": Package,
+  "managed-services": Server,
+  "quality-assurance": ClipboardCheck,
+  "validation": Stamp,
 }
 
 export function Services() {

@@ -42,11 +42,11 @@ export function Hero() {
             {/* Key Stats */}
             <div className="grid grid-cols-3 gap-6 mb-8">
               <div className="text-center">
-                <div className="text-3xl font-bold text-primary">500+</div>
+                <div className="text-3xl font-bold text-primary">100+</div>
                 <div className="text-sm text-muted-foreground">Projects Delivered</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-secondary">$2.8B</div>
+                <div className="text-3xl font-bold text-secondary">$50M+</div>
                 <div className="text-sm text-muted-foreground">Client Savings</div>
               </div>
               <div className="text-center">

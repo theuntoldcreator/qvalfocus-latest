@@ -35,17 +35,38 @@ export const SERVICES = [
     description: "Comprehensive security frameworks, risk assessment, and compliance solutions to protect your enterprise.",
     features: ["Security Architecture", "Compliance Management", "Threat Detection"],
     metric: "99.9% threat prevention"
+  },
+  {
+    id: "product-engineering",
+    title: "Product Engineering",
+    description: "End-to-end product development services, from ideation and design to engineering and launch.",
+    features: ["UI/UX Design", "Agile Development", "Quality Assurance"],
+    metric: "50% faster time-to-market"
+  },
+  {
+    id: "managed-services",
+    title: "Managed Services",
+    description: "Proactive management of your IT infrastructure and applications to ensure reliability and performance.",
+    features: ["24/7 Monitoring", "Incident Management", "Performance Tuning"],
+    metric: "99.9% uptime"
+  },
+  {
+    id: "quality-assurance",
+    title: "Quality Assurance",
+    description: "Comprehensive testing and QA services to ensure your software meets the highest quality standards.",
+    features: ["Manual & Automated Testing", "Performance Testing", "Security Testing"],
+    metric: "80% defect reduction"
+  },
+  {
+    id: "validation",
+    title: "Validation",
+    description: "Specialized validation services for regulated industries, ensuring compliance with standards like GxP.",
+    features: ["CSV (Computer System Validation)", "Process Validation", "Regulatory Compliance"],
+    metric: "100% audit readiness"
   }
 ]
 
 export const INDUSTRIES = [
-  {
-    id: "financial-services",
-    title: "Financial Services",
-    description: "Regulatory compliance, risk management, and digital banking transformation for financial institutions.",
-    features: ["SOX, PCI-DSS, Basel III compliance", "Core banking modernization", "Fraud detection systems", "Open banking APIs"],
-    clientCount: "50+ Financial Clients"
-  },
   {
     id: "healthcare",
     title: "Healthcare & Life Sciences",
@@ -54,33 +75,19 @@ export const INDUSTRIES = [
     clientCount: "30+ Healthcare Systems"
   },
   {
+    id: "financial-services",
+    title: "Financial Services",
+    description: "Regulatory compliance, risk management, and digital banking transformation for financial institutions.",
+    features: ["SOX, PCI-DSS, Basel III compliance", "Core banking modernization", "Fraud detection systems", "Open banking APIs"],
+    clientCount: "50+ Financial Clients"
+  },
+  {
     id: "manufacturing",
     title: "Manufacturing & Industrial",
     description: "Industry 4.0 transformation, IoT implementation, and supply chain optimization for manufacturers.",
     features: ["Smart factory solutions", "Predictive maintenance", "Supply chain optimization", "Quality management systems"],
     clientCount: "40+ Manufacturing Plants"
   },
-  {
-    id: "retail",
-    title: "Retail & E-commerce",
-    description: "Omnichannel experiences, inventory optimization, and personalization engines for retailers.",
-    features: ["Omnichannel platforms", "Inventory management", "Personalization engines", "Mobile commerce solutions"],
-    clientCount: "25+ Retail Brands"
-  },
-  {
-    id: "energy",
-    title: "Energy & Utilities",
-    description: "Smart grid solutions, renewable energy integration, and operational technology modernization.",
-    features: ["Smart grid implementation", "Asset performance management", "Renewable energy systems", "SCADA modernization"],
-    clientCount: "15+ Utility Companies"
-  },
-  {
-    id: "transportation",
-    title: "Transportation & Logistics",
-    description: "Route optimization, fleet management, and digital freight platforms for transportation companies.",
-    features: ["Fleet management systems", "Route optimization", "Digital freight platforms", "Autonomous vehicle integration"],
-    clientCount: "20+ Transportation Firms"
-  }
 ]
 
 export const CASE_STUDIES = [

@@ -13,25 +13,25 @@ export function About() {
               About {COMPANY_INFO.name}
             </h2>
             <p className="text-xl text-muted-foreground mb-8">
-              For over 25 years, QvalFocus has been at the forefront of enterprise technology transformation, 
-              helping Fortune 500 companies navigate complex digital challenges and achieve measurable business outcomes.
+              Since 2017, QvalFocus has been at the forefront of enterprise technology transformation, 
+              helping leading companies navigate complex digital challenges and achieve measurable business outcomes.
             </p>
             
             <div className="grid grid-cols-2 gap-6 mb-8">
               <div>
-                <div className="text-3xl font-bold text-primary mb-2">25+</div>
+                <div className="text-3xl font-bold text-primary mb-2">5+</div>
                 <div className="text-muted-foreground">Years of Excellence</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-primary mb-2">500+</div>
+                <div className="text-3xl font-bold text-primary mb-2">50+</div>
                 <div className="text-muted-foreground">Global Clients</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-primary mb-2">2000+</div>
+                <div className="text-3xl font-bold text-primary mb-2">100+</div>
                 <div className="text-muted-foreground">Expert Consultants</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-primary mb-2">50+</div>
+                <div className="text-3xl font-bold text-primary mb-2">10+</div>
                 <div className="text-muted-foreground">Countries Served</div>
               </div>
             </div>

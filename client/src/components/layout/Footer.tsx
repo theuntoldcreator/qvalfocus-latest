@@ -18,7 +18,7 @@ export function Footer() {
               Transforming enterprises through strategic technology consulting and digital innovation.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <a href="https://www.linkedin.com/company/qvalfocus/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
                 <Linkedin className="w-6 h-6" />
                 <span className="sr-only">LinkedIn</span>
               </a>
@@ -33,15 +33,13 @@ export function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-6">Services</h3>
             <ul className="space-y-4 text-gray-300">
-              {SERVICES.map((service) => (
+              {SERVICES.slice(0, 6).map((service) => (
                 <li key={service.id}>
                   <a href="#" className="hover:text-white transition-colors">
                     {service.title}
                   </a>
                 </li>
               ))}
-              <li><a href="#" className="hover:text-white transition-colors">Product Engineering</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Managed Services</a></li>
             </ul>
           </div>
 
@@ -49,7 +47,7 @@ export function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-6">Industries</h3>
             <ul className="space-y-4 text-gray-300">
-              {INDUSTRIES.slice(0, 6).map((industry) => (
+              {INDUSTRIES.map((industry) => (
                 <li key={industry.id}>
                   <a href="#" className="hover:text-white transition-colors">
                     {industry.title}
