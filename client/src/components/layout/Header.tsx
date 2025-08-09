@@ -28,7 +28,7 @@ export function Header() {
       <nav className="container flex justify-between items-center h-16">
         {/* Logo */}
         <Link href="/" className="flex items-center">
-          <span className="text-2xl font-bold text-primary">{COMPANY_INFO.name.split(' ')[0]}</span>
+          <img src="/images/qvalfocus.png" alt="QvalFocus Logo" className="h-8 w-auto dark:brightness-0 dark:invert" />
         </Link>
 
         {/* Desktop Navigation */}

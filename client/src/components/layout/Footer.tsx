@@ -12,7 +12,7 @@ export function Footer() {
           {/* Company Info */}
           <div className="lg:col-span-1">
             <div className="flex items-center mb-6">
-              <span className="text-2xl font-bold text-primary">{COMPANY_INFO.name.split(' ')[0]}</span>
+              <img src="/images/qvalfocus.png" alt="QvalFocus Logo" className="h-8 w-auto brightness-0 invert" />
             </div>
             <p className="text-gray-300 mb-6">
               Transforming enterprises through strategic technology consulting and digital innovation.
