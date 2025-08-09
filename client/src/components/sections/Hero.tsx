@@ -23,13 +23,6 @@ export function Hero() {
       <div className="container">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
-            <div className="mb-6">
-              <Badge variant="secondary" className="mb-4">
-                <Zap className="w-4 h-4 mr-2" />
-                A Premier Professional Services Organization
-              </Badge>
-            </div>
-            
             <h1 className="text-4xl lg:text-6xl font-bold text-foreground mb-6">
               Unwavering Commitment,{" "}
               <span className="text-gradient">Unparalleled Precision</span>
