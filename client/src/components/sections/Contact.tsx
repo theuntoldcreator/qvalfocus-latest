@@ -199,7 +199,7 @@ export function Contact() {
                             <FormControl>
                               <SelectTrigger>
                                 <SelectValue placeholder="Select budget range" />
-                              </SelectTrigger>
+                              </T rig ger>
                             </FormControl>
                             <SelectContent>
                               <SelectItem value="100k-500k">$100K - $500K</SelectItem>
@@ -292,7 +292,7 @@ export function Contact() {
                         {office.address.map((line, index) => (
                           <p key={index}>{line}</p>
                         ))}
-                        <p className="font-medium">{office.phone}</p>
+                        {office.phone && <p className="font-medium">{office.phone}</p>}
                       </div>
                     </CardContent>
                   </Card>

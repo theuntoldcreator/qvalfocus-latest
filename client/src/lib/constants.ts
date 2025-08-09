@@ -4,7 +4,7 @@ export const COMPANY_INFO = {
   description: "Global consulting firm specializing in digital transformation, cloud engineering, and data analytics for Fortune 500 companies. 25+ years of proven results.",
   website: "https://qvalfocus.com",
   email: "info@qvalfocus.com",
-  phone: "+1 (555) 123-4567"
+  phone: "+1 (609) 701-9988"
 }
 
 export const SERVICES = [
@@ -261,18 +261,12 @@ export const CLIENT_LOGOS = [
 
 export const OFFICE_LOCATIONS = [
   {
-    name: "New York (Headquarters)",
-    address: ["350 Fifth Avenue, Suite 4820", "New York, NY 10118"],
-    phone: "+1 (555) 123-4567"
+    name: "United States",
+    address: ["666 Plainsboro Rd #615", "Plainsboro Township, NJ 08536"],
+    phone: "+1 (609) 701-9988"
   },
   {
-    name: "London",
-    address: ["25 Canada Square, Canary Wharf", "London E14 5LQ, UK"],  
-    phone: "+44 20 7946 0958"
-  },
-  {
-    name: "Singapore",
-    address: ["8 Marina Boulevard, #05-02", "Marina Bay Financial Centre", "Singapore 018981"],
-    phone: "+65 6538 1234"
+    name: "India",
+    address: ["Plot No 383, Bachpally", "Hyderabad 500090, India"]
   }
 ]
