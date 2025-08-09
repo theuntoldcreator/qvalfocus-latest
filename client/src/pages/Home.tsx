@@ -17,13 +17,13 @@ export default function Home() {
       <Header />
       <main id="main-content">
         <Hero />
+        <About />
         <ClientLogos />
         <Services />
         <Industries />
         <CaseStudies />
         <ROICalculators />
         <Insights />
-        <About />
         <Contact />
         <Newsletter />
       </main>
