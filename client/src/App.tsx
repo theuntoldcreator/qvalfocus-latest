@@ -12,6 +12,7 @@ import InsightsPage from "@/pages/InsightsPage";
 import InsightDetailPage from "@/pages/InsightDetailPage";
 import NotFound from "@/pages/not-found";
 import { CookieConsentBanner } from "@/components/layout/CookieConsentBanner";
+import ScrollToTop from "@/components/layout/ScrollToTop";
 
 function Router() {
   return (
@@ -33,6 +34,7 @@ function App() {
       <ThemeProvider>
         <TooltipProvider>
           <Toaster />
+          <ScrollToTop />
           <Router />
           <CookieConsentBanner />
         </TooltipProvider>
