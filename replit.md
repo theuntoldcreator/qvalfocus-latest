@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a production-ready enterprise consulting website built for StrataTech Consulting, a global technology transformation firm. The application is built using a full-stack TypeScript architecture with React on the frontend and Express.js on the backend. The website showcases the company's services, industry expertise, case studies, and provides interactive features like contact forms and ROI calculators for potential clients.
+This is a production-ready enterprise consulting website built for QvalFocus, a global technology transformation firm. The application is built using a full-stack TypeScript architecture with React on the frontend and Express.js on the backend. The website showcases the company's services, industry expertise, case studies, and provides interactive features like contact forms and ROI calculators for potential clients.
 
 ## User Preferences
 

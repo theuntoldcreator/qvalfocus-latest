@@ -245,7 +245,7 @@ export function Contact() {
                           </FormControl>
                           <div className="space-y-1 leading-none">
                             <FormLabel className="text-sm text-muted-foreground">
-                              I consent to StrataTech Consulting contacting me about relevant services and insights. 
+                              I consent to QvalFocus contacting me about relevant services and insights. 
                               You can unsubscribe at any time. *
                             </FormLabel>
                             <FormMessage />

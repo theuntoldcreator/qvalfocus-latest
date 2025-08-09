@@ -13,7 +13,7 @@ export function About() {
               About {COMPANY_INFO.name}
             </h2>
             <p className="text-xl text-muted-foreground mb-8">
-              For over 25 years, StrataTech has been at the forefront of enterprise technology transformation, 
+              For over 25 years, QvalFocus has been at the forefront of enterprise technology transformation, 
               helping Fortune 500 companies navigate complex digital challenges and achieve measurable business outcomes.
             </p>
             

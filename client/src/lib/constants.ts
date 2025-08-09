@@ -1,10 +1,10 @@
 export const COMPANY_INFO = {
-  name: "StrataTech Consulting",
+  name: "QvalFocus",
   tagline: "Enterprise Technology Transformation",
   description: "Global consulting firm specializing in digital transformation, cloud engineering, and data analytics for Fortune 500 companies. 25+ years of proven results.",
-  website: "https://stratatech.consulting",
-  email: "info@stratatech.consulting",
-  phone: "+1 (555) STRATA-1"
+  website: "https://qvalfocus.com",
+  email: "info@qvalfocus.com",
+  phone: "+1 (555) 123-4567"
 }
 
 export const SERVICES = [
