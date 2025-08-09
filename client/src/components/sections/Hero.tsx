@@ -19,7 +19,7 @@ export function Hero() {
   }
 
   return (
-    <section className="relative gradient-hero section-padding">
+    <section className="relative gradient-hero py-12 lg:py-20">
       <div className="container">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
