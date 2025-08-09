@@ -32,22 +32,6 @@ export function Hero() {
               As a premier professional services organization, we are defined by an unwavering commitment to excellence, offering unparalleled precision in every partnership.
             </p>
             
-            {/* Key Stats */}
-            <div className="grid grid-cols-3 gap-6 mb-8">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-primary">100+</div>
-                <div className="text-sm text-muted-foreground">Projects Delivered</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-secondary">$50M+</div>
-                <div className="text-sm text-muted-foreground">Client Savings</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-primary">98%</div>
-                <div className="text-sm text-muted-foreground">Client Retention</div>
-              </div>
-            </div>
-
             <div className="flex flex-col sm:flex-row gap-4">
               <Button size="lg" onClick={scrollToContact}>
                 Contact Us
