@@ -100,28 +100,13 @@ export function Header() {
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden items-center space-x-8 md:flex">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="flex items-center space-x-1">
-                <span>Services</span>
-                <ChevronDown className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="start" className="w-64">
-              {SERVICES.map((service) => (
-                <DropdownMenuItem key={service.id} asChild>
-                  <Link href={`${homePath}#services`}>{service.title}</Link>
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
-
-          <Button asChild variant="ghost"><Link href={`${homePath}#industries`}>Industries</Link></Button>
-          <Button asChild variant="ghost"><Link href="/partnerships">Partnerships</Link></Button>
+        <div className="hidden items-center space-x-6 md:flex">
+          <Button asChild variant="ghost"><Link href={`${homePath}#about`}>About Us</Link></Button>
+          <Button asChild variant="ghost"><Link href={`${homePath}#services`}>Information Technology</Link></Button>
+          <Button asChild variant="ghost"><Link href={`${homePath}#industries`}>Life Sciences</Link></Button>
           <Button asChild variant="ghost"><Link href="/insights">Insights</Link></Button>
           <Button asChild variant="ghost"><Link href="/careers">Careers</Link></Button>
-          <Button asChild variant="ghost"><Link href={`${homePath}#about`}>About Us</Link></Button>
+          <Button asChild variant="ghost"><Link href={`${homePath}#contact`}>Contact Us</Link></Button>
         </div>
 
         {/* Mobile menu */}
@@ -149,16 +134,16 @@ export function Header() {
                 </div>
                 <div className="flex-1 p-4">
                   <div className="flex flex-col space-y-2">
-                    <Button asChild variant="ghost" className="justify-start"><Link href={`${homePath}#services`}>Services</Link></Button>
-                    <Button asChild variant="ghost" className="justify-start"><Link href={`${homePath}#industries`}>Industries</Link></Button>
-                    <Button asChild variant="ghost" className="justify-start"><Link href="/partnerships">Partnerships</Link></Button>
+                    <Button asChild variant="ghost" className="justify-start"><Link href={`${homePath}#about`}>About Us</Link></Button>
+                    <Button asChild variant="ghost" className="justify-start"><Link href={`${homePath}#services`}>Information Technology</Link></Button>
+                    <Button asChild variant="ghost" className="justify-start"><Link href={`${homePath}#industries`}>Life Sciences</Link></Button>
                     <Button asChild variant="ghost" className="justify-start"><Link href="/insights">Insights</Link></Button>
                     <Button asChild variant="ghost" className="justify-start"><Link href="/careers">Careers</Link></Button>
-                    <Button asChild variant="ghost" className="justify-start"><Link href={`${homePath}#about`}>About Us</Link></Button>
+                    <Button asChild variant="ghost" className="justify-start"><Link href={`${homePath}#contact`}>Contact Us</Link></Button>
                   </div>
                 </div>
                 <div className="border-t p-4">
-                  <Button asChild className="w-full"><Link href={`${homePath}#contact`}>Book Strategy Call</Link></Button>
+                  <Button asChild className="w-full"><Link href={`${homePath}#contact`}>Contact Us</Link></Button>
                 </div>
               </div>
             </SheetContent>

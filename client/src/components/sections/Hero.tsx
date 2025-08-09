@@ -26,17 +26,17 @@ export function Hero() {
             <div className="mb-6">
               <Badge variant="secondary" className="mb-4">
                 <Zap className="w-4 h-4 mr-2" />
-                Trusted by Fortune 500 Companies
+                A Premier Professional Services Organization
               </Badge>
             </div>
             
             <h1 className="text-4xl lg:text-6xl font-bold text-foreground mb-6">
-              Global Expertise,{" "}
-              <span className="text-gradient">Tailored Delivery</span>
+              Unwavering Commitment,{" "}
+              <span className="text-gradient">Unparalleled Precision</span>
             </h1>
             
             <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-              At QvalFocus, we combine our global consulting expertise with a tailored delivery approach unique to each client’s needs. We believe client relationships built on authenticity and a shared vision can truly make a measurable impact.
+              As a premier professional services organization, we are defined by an unwavering commitment to excellence, offering unparalleled precision in every partnership.
             </p>
             
             {/* Key Stats */}
@@ -57,7 +57,7 @@ export function Hero() {
 
             <div className="flex flex-col sm:flex-row gap-4">
               <Button size="lg" onClick={scrollToContact}>
-                Book Strategy Call
+                Contact Us
               </Button>
               <Button variant="outline" size="lg" onClick={scrollToCaseStudies}>
                 Explore Our Work

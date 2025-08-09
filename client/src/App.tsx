@@ -10,6 +10,7 @@ import CaseStudiesPage from "@/pages/CaseStudiesPage";
 import CaseStudyDetailPage from "@/pages/CaseStudyDetailPage";
 import InsightsPage from "@/pages/InsightsPage";
 import InsightDetailPage from "@/pages/InsightDetailPage";
+import CareersPage from "@/pages/CareersPage";
 import NotFound from "@/pages/not-found";
 import { CookieConsentBanner } from "@/components/layout/CookieConsentBanner";
 import ScrollToTop from "@/components/layout/ScrollToTop";
@@ -23,6 +24,7 @@ function Router() {
       <Route path="/case-studies/:slug" component={CaseStudyDetailPage} />
       <Route path="/insights" component={InsightsPage} />
       <Route path="/insights/:slug" component={InsightDetailPage} />
+      <Route path="/careers" component={CareersPage} />
       <Route component={NotFound} />
     </Switch>
   );

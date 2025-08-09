@@ -1,7 +1,7 @@
 export const COMPANY_INFO = {
   name: "QvalFocus",
-  tagline: "Enterprise Technology Transformation",
-  description: "Global consulting firm specializing in digital transformation, cloud engineering, and data analytics for Fortune 500 companies. 25+ years of proven results.",
+  tagline: "Premier Professional Services",
+  description: "As a premier professional services organization, we are defined by an unwavering commitment to excellence, offering unparalleled precision in every partnership.",
   website: "https://qvalfocus.com",
   email: "info@qvalfocus.com",
   phone: "+1 (609) 701-9988"
