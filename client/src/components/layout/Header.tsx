@@ -119,7 +119,7 @@ export function Header() {
 
           <Button asChild variant="ghost"><Link href={`${homePath}#industries`}>Industries</Link></Button>
           <Button asChild variant="ghost"><Link href="/partnerships">Partnerships</Link></Button>
-          <Button asChild variant="ghost"><Link href={`${homePath}#insights`}>Insights</Link></Button>
+          <Button asChild variant="ghost"><Link href="/insights">Insights</Link></Button>
           <Button asChild variant="ghost"><Link href="/careers">Careers</Link></Button>
           <Button asChild variant="ghost"><Link href={`${homePath}#about`}>About Us</Link></Button>
         </div>
@@ -152,7 +152,7 @@ export function Header() {
                     <Button asChild variant="ghost" className="justify-start"><Link href={`${homePath}#services`}>Services</Link></Button>
                     <Button asChild variant="ghost" className="justify-start"><Link href={`${homePath}#industries`}>Industries</Link></Button>
                     <Button asChild variant="ghost" className="justify-start"><Link href="/partnerships">Partnerships</Link></Button>
-                    <Button asChild variant="ghost" className="justify-start"><Link href={`${homePath}#insights`}>Insights</Link></Button>
+                    <Button asChild variant="ghost" className="justify-start"><Link href="/insights">Insights</Link></Button>
                     <Button asChild variant="ghost" className="justify-start"><Link href="/careers">Careers</Link></Button>
                     <Button asChild variant="ghost" className="justify-start"><Link href={`${homePath}#about`}>About Us</Link></Button>
                   </div>
