@@ -15,18 +15,16 @@ import { Input } from "@/components/ui/input"
 import { SERVICES } from "@/lib/constants"
 
 const TopBarItems = ({
-  onLinkClick,
   selectedCountry,
   onCountryChange,
 }: {
-  onLinkClick: (id: string) => void
   selectedCountry: string
   onCountryChange: (country: string) => void
 }) => {
   return (
     <>
-      <Button variant="link" className="text-muted-foreground hover:text-foreground p-0 h-auto" size="sm" onClick={() => onLinkClick("contact")}>
-        Contact
+      <Button asChild variant="link" className="text-muted-foreground hover:text-foreground p-0 h-auto" size="sm">
+        <Link href="/#contact">Contact</Link>
       </Button>
 
       <Dialog>
@@ -67,21 +65,14 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [location, setLocation] = useLocation()
 
-  const selectedCountry = location === '/in' ? 'India' : 'USA'
+  const selectedCountry = location.startsWith('/in') ? 'India' : 'USA'
+  const homePath = selectedCountry === 'India' ? '/in' : '/'
 
   const handleCountryChange = (country: string) => {
     if (country === 'India') {
       setLocation('/in')
     } else {
       setLocation('/')
-    }
-    setMobileMenuOpen(false)
-  }
-
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId)
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" })
     }
     setMobileMenuOpen(false)
   }
@@ -93,7 +84,6 @@ export function Header() {
         <div className="container hidden h-12 items-center justify-end md:flex">
           <div className="flex items-center space-x-6 text-sm">
             <TopBarItems
-              onLinkClick={scrollToSection}
               selectedCountry={selectedCountry}
               onCountryChange={handleCountryChange}
             />
@@ -105,7 +95,7 @@ export function Header() {
       {/* Main Navigation */}
       <nav className="container flex h-20 items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center">
+        <Link href={homePath} className="flex items-center">
           <img src="/images/qvalfocus.png" alt="QvalFocus Logo" className="h-9 w-auto dark:brightness-0 dark:invert" />
         </Link>
 
@@ -120,28 +110,18 @@ export function Header() {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start" className="w-64">
               {SERVICES.map((service) => (
-                <DropdownMenuItem key={service.id} onClick={() => scrollToSection("services")}>
-                  {service.title}
+                <DropdownMenuItem key={service.id} asChild>
+                  <Link href={`${homePath}#services`}>{service.title}</Link>
                 </DropdownMenuItem>
               ))}
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <Button variant="ghost" onClick={() => scrollToSection("industries")}>
-            Industries
-          </Button>
-          <Button variant="ghost" onClick={() => { /* Placeholder */ }}>
-            Partnerships
-          </Button>
-          <Button variant="ghost" onClick={() => scrollToSection("insights")}>
-            Insights
-          </Button>
-          <Button variant="ghost" onClick={() => { /* Placeholder */ }}>
-            Careers
-          </Button>
-          <Button variant="ghost" onClick={() => scrollToSection("about")}>
-            About Us
-          </Button>
+          <Button asChild variant="ghost"><Link href={`${homePath}#industries`}>Industries</Link></Button>
+          <Button asChild variant="ghost"><Link href="/partnerships">Partnerships</Link></Button>
+          <Button asChild variant="ghost"><Link href={`${homePath}#insights`}>Insights</Link></Button>
+          <Button asChild variant="ghost"><Link href="/careers">Careers</Link></Button>
+          <Button asChild variant="ghost"><Link href={`${homePath}#about`}>About Us</Link></Button>
         </div>
 
         {/* Mobile menu */}
@@ -162,7 +142,6 @@ export function Header() {
                   </div>
                   <div className="mt-4 flex items-center justify-between">
                     <TopBarItems
-                      onLinkClick={scrollToSection}
                       selectedCountry={selectedCountry}
                       onCountryChange={handleCountryChange}
                     />
@@ -170,30 +149,16 @@ export function Header() {
                 </div>
                 <div className="flex-1 p-4">
                   <div className="flex flex-col space-y-2">
-                    <Button variant="ghost" className="justify-start" onClick={() => scrollToSection("services")}>
-                      Services
-                    </Button>
-                    <Button variant="ghost" className="justify-start" onClick={() => scrollToSection("industries")}>
-                      Industries
-                    </Button>
-                    <Button variant="ghost" className="justify-start" onClick={() => { /* Placeholder */ }}>
-                      Partnerships
-                    </Button>
-                    <Button variant="ghost" className="justify-start" onClick={() => scrollToSection("insights")}>
-                      Insights
-                    </Button>
-                    <Button variant="ghost" className="justify-start" onClick={() => { /* Placeholder */ }}>
-                      Careers
-                    </Button>
-                    <Button variant="ghost" className="justify-start" onClick={() => scrollToSection("about")}>
-                      About Us
-                    </Button>
+                    <Button asChild variant="ghost" className="justify-start"><Link href={`${homePath}#services`}>Services</Link></Button>
+                    <Button asChild variant="ghost" className="justify-start"><Link href={`${homePath}#industries`}>Industries</Link></Button>
+                    <Button asChild variant="ghost" className="justify-start"><Link href="/partnerships">Partnerships</Link></Button>
+                    <Button asChild variant="ghost" className="justify-start"><Link href={`${homePath}#insights`}>Insights</Link></Button>
+                    <Button asChild variant="ghost" className="justify-start"><Link href="/careers">Careers</Link></Button>
+                    <Button asChild variant="ghost" className="justify-start"><Link href={`${homePath}#about`}>About Us</Link></Button>
                   </div>
                 </div>
                 <div className="border-t p-4">
-                  <Button onClick={() => scrollToSection("contact")} className="w-full">
-                    Book Strategy Call
-                  </Button>
+                  <Button asChild className="w-full"><Link href={`${homePath}#contact`}>Book Strategy Call</Link></Button>
                 </div>
               </div>
             </SheetContent>
