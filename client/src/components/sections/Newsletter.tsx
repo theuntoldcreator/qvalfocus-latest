@@ -1,11 +1,12 @@
-import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
+import { useMutation } from "@tanstack/react-query"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form"
 import { useToast } from "@/hooks/use-toast"
+import { subscribeToNewsletter } from "@/api/newsletter"
 
 const newsletterSchema = z.object({
   email: z.string().email("Invalid email address")
@@ -14,7 +15,6 @@ const newsletterSchema = z.object({
 type NewsletterFormData = z.infer<typeof newsletterSchema>
 
 export function Newsletter() {
-  const [isSubmitted, setIsSubmitted] = useState(false)
   const { toast } = useToast()
   
   const form = useForm<NewsletterFormData>({
@@ -24,31 +24,29 @@ export function Newsletter() {
     }
   })
 
-  const onSubmit = async (data: NewsletterFormData) => {
-    try {
-      // TODO: Implement newsletter subscription
-      console.log("Newsletter subscription:", data.email)
-      
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 500))
-      
-      setIsSubmitted(true)
+  const mutation = useMutation({
+    mutationFn: subscribeToNewsletter,
+    onSuccess: () => {
       toast({
         title: "Thank you for subscribing!",
         description: "You'll receive our monthly insights newsletter."
       })
-      
       form.reset()
-    } catch (error) {
+    },
+    onError: (error) => {
       toast({
         title: "Error",
         description: "There was an error subscribing. Please try again.",
         variant: "destructive"
       })
     }
+  })
+
+  const onSubmit = (data: NewsletterFormData) => {
+    mutation.mutate(data)
   }
 
-  if (isSubmitted) {
+  if (mutation.isSuccess) {
     return (
       <section className="py-16 bg-primary">
         <div className="container text-center">
@@ -92,9 +90,9 @@ export function Newsletter() {
               <Button 
                 type="submit" 
                 variant="secondary"
-                disabled={form.formState.isSubmitting}
+                disabled={mutation.isPending}
               >
-                {form.formState.isSubmitting ? "Subscribing..." : "Subscribe"}
+                {mutation.isPending ? "Subscribing..." : "Subscribe"}
               </Button>
             </form>
           </Form>

@@ -1,7 +1,7 @@
-import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
+import { useMutation } from "@tanstack/react-query"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -10,6 +10,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Mail, Phone, CheckCircle } from "lucide-react"
 import { COMPANY_INFO, OFFICE_LOCATIONS } from "@/lib/constants"
 import { useToast } from "@/hooks/use-toast"
+import { submitContactForm } from "@/api/contact"
 
 const contactFormSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters"),
@@ -25,7 +26,6 @@ const contactFormSchema = z.object({
 type ContactFormData = z.infer<typeof contactFormSchema>
 
 export function Contact() {
-  const [isSubmitted, setIsSubmitted] = useState(false)
   const { toast } = useToast()
   
   const form = useForm<ContactFormData>({
@@ -42,27 +42,29 @@ export function Contact() {
     }
   })
 
-  const onSubmit = async (data: ContactFormData) => {
-    if (data.website) {
-      return // Likely spam
-    }
-
-    try {
-      console.log("Form submitted:", data)
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      
-      setIsSubmitted(true)
+  const mutation = useMutation({
+    mutationFn: submitContactForm,
+    onSuccess: () => {
       toast({
         title: "Thanks for reaching out!",
         description: "We've received your message and will be in touch shortly."
       })
-    } catch (error) {
+      form.reset()
+    },
+    onError: () => {
       toast({
         title: "Error",
         description: "There was an error submitting your form. Please try again.",
         variant: "destructive"
       })
     }
+  })
+
+  const onSubmit = (data: ContactFormData) => {
+    if (data.website) {
+      return // Likely spam
+    }
+    mutation.mutate(data)
   }
 
   return (
@@ -84,7 +86,7 @@ export function Contact() {
               <CardTitle className="text-2xl">Get in Touch</CardTitle>
             </CardHeader>
             <CardContent>
-              {!isSubmitted ? (
+              {!mutation.isSuccess ? (
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                     <Input
@@ -203,9 +205,9 @@ export function Contact() {
                       type="submit" 
                       className="w-full" 
                       size="lg"
-                      disabled={form.formState.isSubmitting}
+                      disabled={mutation.isPending}
                     >
-                      {form.formState.isSubmitting ? "Submitting..." : "Submit"}
+                      {mutation.isPending ? "Submitting..." : "Submit"}
                     </Button>
                   </form>
                 </Form>

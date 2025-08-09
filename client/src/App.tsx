@@ -1,19 +1,22 @@
 import { Switch, Route } from "wouter";
+import { lazy, Suspense } from "react";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/components/ui/theme-provider";
-import Home from "@/pages/Home";
-import India from "@/pages/India";
-import CaseStudiesPage from "@/pages/CaseStudiesPage";
-import CaseStudyDetailPage from "@/pages/CaseStudyDetailPage";
-import InsightsPage from "@/pages/InsightsPage";
-import InsightDetailPage from "@/pages/InsightDetailPage";
-import CareersPage from "@/pages/CareersPage";
-import NotFound from "@/pages/not-found";
 import { CookieConsentBanner } from "@/components/layout/CookieConsentBanner";
-import ScrollToTop from "@/components/layout/ScrollToTop";
+import ScrollToTop from "@/components/common/ScrollToTop";
+import { PageLoader } from "@/components/common/PageLoader";
+
+const Home = lazy(() => import("@/pages/Home"));
+const India = lazy(() => import("@/pages/India"));
+const CaseStudiesPage = lazy(() => import("@/pages/CaseStudiesPage"));
+const CaseStudyDetailPage = lazy(() => import("@/pages/CaseStudyDetailPage"));
+const InsightsPage = lazy(() => import("@/pages/InsightsPage"));
+const InsightDetailPage = lazy(() => import("@/pages/InsightDetailPage"));
+const CareersPage = lazy(() => import("@/pages/CareersPage"));
+const NotFound = lazy(() => import("@/pages/not-found"));
 
 function Router() {
   return (
@@ -37,7 +40,9 @@ function App() {
         <TooltipProvider>
           <Toaster />
           <ScrollToTop />
-          <Router />
+          <Suspense fallback={<PageLoader />}>
+            <Router />
+          </Suspense>
           <CookieConsentBanner />
         </TooltipProvider>
       </ThemeProvider>
