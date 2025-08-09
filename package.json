@@ -1,6 +1,9 @@
 {
   "scripts": {
-    "build": "vite build"
+    "dev": "tsx watch server/index.ts",
+    "build": "vite build",
+    "start": "NODE_ENV=production tsx server/index.ts",
+    "vercel-build": "npm run build"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
