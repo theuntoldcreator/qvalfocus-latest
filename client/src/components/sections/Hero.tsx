@@ -31,13 +31,12 @@ export function Hero() {
             </div>
             
             <h1 className="text-4xl lg:text-6xl font-bold text-foreground mb-6">
-              Transform Your Enterprise with{" "}
-              <span className="text-gradient">Strategic Technology</span>
+              Global Expertise,{" "}
+              <span className="text-gradient">Tailored Delivery</span>
             </h1>
             
             <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-              We help Fortune 500 companies accelerate digital transformation, optimize cloud infrastructure, 
-              and harness AI to drive measurable business outcomes. 25+ years of proven results.
+              At QvalFocus, we combine our global consulting expertise with a tailored delivery approach unique to each client’s needs. We believe client relationships built on authenticity and a shared vision can truly make a measurable impact.
             </p>
             
             {/* Key Stats */}
@@ -61,7 +60,7 @@ export function Hero() {
                 Book Strategy Call
               </Button>
               <Button variant="outline" size="lg" onClick={scrollToCaseStudies}>
-                View Case Studies
+                Explore Our Work
               </Button>
             </div>
           </div>
