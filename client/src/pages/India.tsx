@@ -6,7 +6,6 @@ import { ClientLogos } from "@/components/sections/ClientLogos"
 import { Services } from "@/components/sections/Services"
 import { Industries } from "@/components/sections/Industries"
 import { CaseStudies } from "@/components/sections/CaseStudies"
-import { ROICalculators } from "@/components/calculators/ROICalculators"
 import { Insights } from "@/components/sections/Insights"
 import { About } from "@/components/sections/About"
 import { Contact } from "@/components/sections/Contact"
@@ -36,7 +35,6 @@ export default function India() {
       <Services />
       <Industries />
       <CaseStudies />
-      <ROICalculators />
       <Insights />
       <Contact />
       <Newsletter />
