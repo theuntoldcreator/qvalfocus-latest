@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/components/ui/theme-provider";
 import Home from "@/pages/Home";
 import India from "@/pages/India";
 import NotFound from "@/pages/not-found";
+import { CookieConsentBanner } from "@/components/layout/CookieConsentBanner";
 
 function Router() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <TooltipProvider>
           <Toaster />
           <Router />
+          <CookieConsentBanner />
         </TooltipProvider>
       </ThemeProvider>
     </QueryClientProvider>
