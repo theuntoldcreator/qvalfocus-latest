@@ -37,7 +37,7 @@ export default function CaseStudyDetailPage({ params }: { params: { slug: string
           </header>
           
           <div 
-            className="prose prose-lg dark:prose-invert max-w-none"
+            className="prose prose-lg max-w-none"
             dangerouslySetInnerHTML={{ __html: study.content }} 
           />
         </article>

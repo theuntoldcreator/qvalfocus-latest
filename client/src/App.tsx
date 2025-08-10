@@ -4,7 +4,6 @@ import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { ThemeProvider } from "@/components/ui/theme-provider";
 import { CookieConsentBanner } from "@/components/layout/CookieConsentBanner";
 import ScrollToTop from "@/components/common/ScrollToTop";
 import { PageLoader } from "@/components/common/PageLoader";
@@ -51,16 +50,14 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <ThemeProvider>
-          <TooltipProvider>
-            <Toaster />
-            <ScrollToTop />
-            <Suspense fallback={<PageLoader />}>
-              <Router />
-            </Suspense>
-            <CookieConsentBanner />
-          </TooltipProvider>
-        </ThemeProvider>
+        <TooltipProvider>
+          <Toaster />
+          <ScrollToTop />
+          <Suspense fallback={<PageLoader />}>
+            <Router />
+          </Suspense>
+          <CookieConsentBanner />
+        </TooltipProvider>
       </AuthProvider>
     </QueryClientProvider>
   );

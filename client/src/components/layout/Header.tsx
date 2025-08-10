@@ -2,7 +2,6 @@ import { useState } from "react"
 import { Link, useLocation } from "wouter"
 import { Menu, ChevronDown, Search, Globe, User } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { ThemeToggle } from "@/components/ui/theme-toggle"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -93,7 +92,7 @@ const TopBarItems = ({
           </DialogTrigger>
           <DialogContent className="sm:max-w-sm">
             <DialogHeader className="items-center text-center">
-              <img src="/images/qvalfocus.png" alt="QvalFocus Logo" className="h-10 w-auto mb-4 mx-auto dark:brightness-0 dark:invert" />
+              <img src="/images/qvalfocus.png" alt="QvalFocus Logo" className="h-10 w-auto mb-4 mx-auto" />
               <DialogTitle className="text-2xl">Admin Portal</DialogTitle>
               <DialogDescription>
                 Please sign in to continue.
@@ -137,7 +136,6 @@ export function Header() {
               selectedCountry={selectedCountry}
               onCountryChange={handleCountryChange}
             />
-            <ThemeToggle />
           </div>
         </div>
       </div>
@@ -146,7 +144,7 @@ export function Header() {
       <nav className="container flex h-20 items-center justify-between">
         {/* Logo */}
         <Link href={homePath} className="flex items-center">
-          <img src="/images/qvalfocus.png" alt="QvalFocus Logo" className="h-9 w-auto dark:brightness-0 dark:invert" />
+          <img src="/images/qvalfocus.png" alt="QvalFocus Logo" className="h-9 w-auto" />
         </Link>
 
         {/* Desktop Navigation */}
@@ -189,7 +187,6 @@ export function Header() {
                 <div className="border-b p-4">
                   <div className="flex items-center justify-between">
                     <span className="font-semibold">Location & Settings</span>
-                    <ThemeToggle />
                   </div>
                   <div className="mt-4 flex items-center flex-wrap gap-4">
                     <TopBarItems
