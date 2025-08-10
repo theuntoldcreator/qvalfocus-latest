@@ -1,6 +1,6 @@
 import { useState } from "react"
-import { Link } from "wouter"
-import { Menu, ChevronDown, Search, User } from "lucide-react"
+import { Link, useLocation } from "wouter"
+import { Menu, ChevronDown, Search, Globe, User } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -15,7 +15,13 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { useAuth } from "@/context/AuthProvider"
 import { LoginForm } from "@/components/auth/LoginForm"
 
-const TopBarItems = () => {
+const TopBarItems = ({
+  selectedCountry,
+  onCountryChange,
+}: {
+  selectedCountry: string
+  onCountryChange: (country: string) => void
+}) => {
   const { session, supabase } = useAuth()
   const [, setLocation] = useLocation()
   const [loginDialogOpen, setLoginDialogOpen] = useState(false)
@@ -48,6 +54,19 @@ const TopBarItems = () => {
           </div>
         </DialogContent>
       </Dialog>
+
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="outline" size="sm" className="flex items-center gap-2">
+            <Globe className="w-4 h-4" />
+            <span>{selectedCountry}</span>
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuItem onSelect={() => onCountryChange("USA")}>USA</DropdownMenuItem>
+          <DropdownMenuItem onSelect={() => onCountryChange("India")}>India</DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
 
       {session ? (
         <DropdownMenu>
@@ -91,8 +110,20 @@ const TopBarItems = () => {
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [location, setLocation] = useLocation()
 
-  const homePath = "/"
+  const selectedCountry = location.startsWith('/in') ? 'India' : 'USA'
+  const homePath = selectedCountry === 'India' ? '/in' : '/'
+
+  const handleCountryChange = (country: string) => {
+    if (country === 'India') {
+      setLocation('/in')
+    } else {
+      setLocation('/')
+    }
+    setMobileMenuOpen(false)
+  }
+
   const closeMobileMenu = () => setMobileMenuOpen(false)
 
   return (
@@ -101,7 +132,10 @@ export function Header() {
       <div className="border-b">
         <div className="container hidden h-12 items-center justify-end md:flex">
           <div className="flex items-center space-x-6 text-sm">
-            <TopBarItems />
+            <TopBarItems
+              selectedCountry={selectedCountry}
+              onCountryChange={handleCountryChange}
+            />
           </div>
         </div>
       </div>
@@ -152,10 +186,13 @@ export function Header() {
               <div className="flex h-full flex-col">
                 <div className="border-b p-4">
                   <div className="flex items-center justify-between">
-                    <span className="font-semibold">Settings</span>
+                    <span className="font-semibold">Location & Settings</span>
                   </div>
                   <div className="mt-4 flex items-center flex-wrap gap-4">
-                    <TopBarItems />
+                    <TopBarItems
+                      selectedCountry={selectedCountry}
+                      onCountryChange={handleCountryChange}
+                    />
                   </div>
                 </div>
                 <div className="flex-1 p-4">
