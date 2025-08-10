@@ -153,7 +153,7 @@ export function ApplicationForm({ job, onSuccess }: { job: Job; onSuccess: () =>
           <FormField
             control={form.control}
             name="resume"
-            render={({ field: { onChange, ...fieldProps } }) => (
+            render={({ field: { value, onChange, ...fieldProps } }) => (
               <FormItem>
                 <FormLabel>Resume</FormLabel>
                 <FormControl>
