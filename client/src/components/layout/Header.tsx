@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Link, useLocation } from "wouter"
-import { Menu, ChevronDown, Search, Globe } from "lucide-react"
+import { Menu, ChevronDown, Search, Globe, User } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/ui/theme-toggle"
 import {
@@ -13,6 +13,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
+import { useAuth } from "@/context/AuthProvider"
 
 const TopBarItems = ({
   selectedCountry,
@@ -21,6 +22,14 @@ const TopBarItems = ({
   selectedCountry: string
   onCountryChange: (country: string) => void
 }) => {
+  const { session, supabase } = useAuth()
+  const [, setLocation] = useLocation()
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut()
+    setLocation("/")
+  }
+
   return (
     <>
       <Button asChild variant="link" className="text-muted-foreground hover:text-foreground p-0 h-auto" size="sm">
@@ -57,6 +66,29 @@ const TopBarItems = ({
           <DropdownMenuItem onSelect={() => onCountryChange("India")}>India</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
+
+      {session ? (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" size="sm" className="flex items-center gap-2">
+              <User className="w-4 h-4" />
+              <span>Admin</span>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem asChild>
+              <Link href="/admin">Dashboard</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem onSelect={handleSignOut}>
+              Logout
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      ) : (
+        <Button asChild variant="outline" size="sm">
+          <Link href="/login">Login</Link>
+        </Button>
+      )}
     </>
   )
 }
@@ -143,7 +175,7 @@ export function Header() {
                     <span className="font-semibold">Location & Settings</span>
                     <ThemeToggle />
                   </div>
-                  <div className="mt-4 flex items-center justify-between">
+                  <div className="mt-4 flex items-center flex-wrap gap-4">
                     <TopBarItems
                       selectedCountry={selectedCountry}
                       onCountryChange={handleCountryChange}
