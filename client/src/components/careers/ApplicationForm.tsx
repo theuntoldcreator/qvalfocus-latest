@@ -10,6 +10,8 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { useToast } from "@/hooks/use-toast";
 import { Job } from "@/types";
 import { CheckCircle } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Progress } from "@/components/ui/progress";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 const ACCEPTED_FILE_TYPES = ["application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"];
@@ -54,16 +56,40 @@ const submitApplication = async ({ formValues, jobId }: { formValues: Applicatio
 export function ApplicationForm({ job, onSuccess }: { job: Job; onSuccess: () => void }) {
   const { toast } = useToast();
   const form = useForm<ApplicationFormData>({ resolver: zodResolver(applicationSchema) });
+  const [uploadProgress, setUploadProgress] = useState<number | null>(null);
 
   const mutation = useMutation({
     mutationFn: submitApplication,
     onSuccess: () => {
-      onSuccess();
+      setUploadProgress(100);
+      setTimeout(() => {
+        onSuccess();
+      }, 500);
     },
     onError: (err) => {
+      setUploadProgress(null);
       toast({ title: "Error", description: err.message, variant: "destructive" });
     },
   });
+
+  // Effect to simulate progress
+  useEffect(() => {
+    if (mutation.isPending) {
+      const timer = setInterval(() => {
+        setUploadProgress((prev) => {
+          if (prev === null) return 0;
+          if (prev >= 95) {
+            clearInterval(timer);
+            return prev;
+          }
+          return prev + 5;
+        });
+      }, 200);
+      return () => clearInterval(timer);
+    }
+  }, [mutation.isPending]);
+
+  const isSubmitting = mutation.isPending;
 
   if (mutation.isSuccess) {
     return (
@@ -78,26 +104,38 @@ export function ApplicationForm({ job, onSuccess }: { job: Job; onSuccess: () =>
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit((data) => mutation.mutate({ formValues: data, jobId: job.id }))} className="space-y-4">
-        <div className="grid grid-cols-2 gap-4">
-          <FormField name="firstName" control={form.control} render={({ field }) => (<FormItem><FormControl><Input placeholder="First Name" {...field} /></FormControl><FormMessage /></FormItem>)} />
-          <FormField name="lastName" control={form.control} render={({ field }) => (<FormItem><FormControl><Input placeholder="Last Name" {...field} /></FormControl><FormMessage /></FormItem>)} />
-        </div>
-        <div className="grid grid-cols-2 gap-4">
-          <FormField name="email" control={form.control} render={({ field }) => (<FormItem><FormControl><Input placeholder="Your Email" type="email" {...field} /></FormControl><FormMessage /></FormItem>)} />
-          <FormField name="phone" control={form.control} render={({ field }) => (<FormItem><FormControl><Input placeholder="Your Phone" type="tel" {...field} /></FormControl><FormMessage /></FormItem>)} />
-        </div>
-        <FormField name="coverLetter" control={form.control} render={({ field }) => (<FormItem><FormControl><Textarea placeholder="Why are you a good fit?" {...field} /></FormControl><FormMessage /></FormItem>)} />
-        <FormField name="resume" control={form.control} render={({ field: { value, onChange, ...fieldProps } }) => (
-          <FormItem>
-            <FormLabel>Resume</FormLabel>
-            <FormControl>
-              <Input type="file" {...fieldProps} onChange={(e) => onChange(e.target.files)} accept=".pdf,.doc,.docx" />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )} />
-        <Button type="submit" className="w-full" disabled={mutation.isPending}>
-          {mutation.isPending ? "Submitting..." : "Submit Application"}
+        <fieldset disabled={isSubmitting} className="space-y-4">
+          <div className="grid grid-cols-2 gap-4">
+            <FormField name="firstName" control={form.control} render={({ field }) => (<FormItem><FormControl><Input placeholder="First Name" {...field} /></FormControl><FormMessage /></FormItem>)} />
+            <FormField name="lastName" control={form.control} render={({ field }) => (<FormItem><FormControl><Input placeholder="Last Name" {...field} /></FormControl><FormMessage /></FormItem>)} />
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <FormField name="email" control={form.control} render={({ field }) => (<FormItem><FormControl><Input placeholder="Your Email" type="email" {...field} /></FormControl><FormMessage /></FormItem>)} />
+            <FormField name="phone" control={form.control} render={({ field }) => (<FormItem><FormControl><Input placeholder="Your Phone" type="tel" {...field} /></FormControl><FormMessage /></FormItem>)} />
+          </div>
+          <FormField name="coverLetter" control={form.control} render={({ field }) => (<FormItem><FormControl><Textarea placeholder="Why are you a good fit?" {...field} /></FormControl><FormMessage /></FormItem>)} />
+          <FormField name="resume" control={form.control} render={({ field: { value, onChange, ...fieldProps } }) => (
+            <FormItem>
+              <FormLabel>Resume</FormLabel>
+              <FormControl>
+                <Input type="file" {...fieldProps} onChange={(e) => onChange(e.target.files)} accept=".pdf,.doc,.docx" />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )} />
+        </fieldset>
+
+        {isSubmitting && uploadProgress !== null && (
+          <div className="space-y-2 pt-2">
+            <Progress value={uploadProgress} className="w-full" />
+            <p className="text-sm text-muted-foreground text-center">
+              Uploading resume...
+            </p>
+          </div>
+        )}
+
+        <Button type="submit" className="w-full" disabled={isSubmitting}>
+          {isSubmitting ? "Submitting..." : "Submit Application"}
         </Button>
       </form>
     </Form>
