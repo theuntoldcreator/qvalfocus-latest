@@ -1,22 +1,17 @@
 import { PageLayout } from "@/components/layout/PageLayout"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Construction } from "lucide-react"
+import { PageTitle } from "@/components/common/PageTitle"
 
 export default function ProjectSolutionPage() {
   return (
     <PageLayout>
-      <section className="section-padding bg-muted">
-        <div className="container text-center">
-          <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-4">
-            Project Solutions
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Comprehensive project delivery and management services.
-          </p>
-        </div>
-      </section>
+      <PageTitle 
+        title="Project Solutions"
+        backLink={{ href: "/", text: "Back to Home" }}
+      />
 
-      <section className="section-padding">
+      <section className="pb-16 lg:pb-24">
         <div className="container">
           <Card className="max-w-2xl mx-auto">
             <CardHeader className="items-center">

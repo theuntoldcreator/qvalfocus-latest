@@ -1,5 +1,6 @@
 import { PageLayout } from "@/components/layout/PageLayout"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { PageTitle } from "@/components/common/PageTitle"
 
 const timelineItems = [
   {
@@ -40,20 +41,13 @@ const TimelineItem = ({ item, isLast }: { item: typeof timelineItems[0], isLast:
 export default function StaffingSolutionPage() {
   return (
     <PageLayout>
-      {/* Hero Section */}
-      <section className="section-padding bg-muted">
-        <div className="container text-center">
-          <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-4">
-            Staffing Solutions
-          </h1>
-          <p className="text-xl text-primary font-medium">
-            Focused on quality, driven by expertise.
-          </p>
-        </div>
-      </section>
+      <PageTitle 
+        title="Staffing Solutions"
+        backLink={{ href: "/", text: "Back to Home" }}
+      />
 
       {/* Content Section */}
-      <section className="section-padding bg-background">
+      <section className="pb-16 lg:pb-24 bg-background">
         <div className="container">
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             <Card>
@@ -75,7 +69,7 @@ export default function StaffingSolutionPage() {
                   At QvalFocus, our Talent Partnership model goes beyond traditional staffing. We immerse ourselves in your business to understand your long-term goals, company culture, and evolving skill needs. Acting as an extension of your HR and hiring teams, we offer consultative support, data-driven hiring strategies, and a flexible engagement model delivering not just people, but business-aligned solutions that drive sustained success.
                 </p>
               </CardContent>
-            </Card>
+            </card>
           </div>
         </div>
       </section>
