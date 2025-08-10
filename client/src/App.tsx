@@ -8,6 +8,8 @@ import { ThemeProvider } from "@/components/ui/theme-provider";
 import { CookieConsentBanner } from "@/components/layout/CookieConsentBanner";
 import ScrollToTop from "@/components/common/ScrollToTop";
 import { PageLoader } from "@/components/common/PageLoader";
+import { AuthProvider } from "@/context/AuthProvider";
+import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 
 const Home = lazy(() => import("@/pages/Home"));
 const India = lazy(() => import("@/pages/India"));
@@ -19,6 +21,8 @@ const InsightDetailPage = lazy(() => import("@/pages/InsightDetailPage"));
 const CareersPage = lazy(() => import("@/pages/CareersPage"));
 const ProjectSolutionPage = lazy(() => import("@/pages/ProjectSolutionPage"));
 const StaffingSolutionPage = lazy(() => import("@/pages/StaffingSolutionPage"));
+const LoginPage = lazy(() => import("@/pages/LoginPage"));
+const AdminPage = lazy(() => import("@/pages/AdminPage"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 
 function Router() {
@@ -34,6 +38,12 @@ function Router() {
       <Route path="/careers" component={CareersPage} />
       <Route path="/project-solution" component={ProjectSolutionPage} />
       <Route path="/staffing-solution" component={StaffingSolutionPage} />
+      <Route path="/login" component={LoginPage} />
+      <Route path="/admin">
+        <ProtectedRoute>
+          <AdminPage />
+        </ProtectedRoute>
+      </Route>
       <Route component={NotFound} />
     </Switch>
   );
@@ -42,16 +52,18 @@ function Router() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        <TooltipProvider>
-          <Toaster />
-          <ScrollToTop />
-          <Suspense fallback={<PageLoader />}>
-            <Router />
-          </Suspense>
-          <CookieConsentBanner />
-        </TooltipProvider>
-      </ThemeProvider>
+      <AuthProvider>
+        <ThemeProvider>
+          <TooltipProvider>
+            <Toaster />
+            <ScrollToTop />
+            <Suspense fallback={<PageLoader />}>
+              <Router />
+            </Suspense>
+            <CookieConsentBanner />
+          </TooltipProvider>
+        </ThemeProvider>
+      </AuthProvider>
     </QueryClientProvider>
   );
 }

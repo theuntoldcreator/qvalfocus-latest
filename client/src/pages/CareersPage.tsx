@@ -1,36 +1,22 @@
-import { PageLayout } from "@/components/layout/PageLayout"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Briefcase } from "lucide-react"
+import { PageLayout } from "@/components/layout/PageLayout";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
+import { PageLoader } from "@/components/common/PageLoader";
 
-const jobOpenings = [
-  {
-    id: "sr-cloud-engineer",
-    title: "Senior Cloud Engineer (AWS/Azure)",
-    location: "Plainsboro, NJ (Hybrid)",
-    department: "Platform Engineering"
-  },
-  {
-    id: "data-scientist",
-    title: "Data Scientist, Life Sciences",
-    location: "Remote",
-    department: "Data, Analytics & AI"
-  },
-  {
-    id: "it-project-manager",
-    title: "IT Project Manager",
-    location: "Hyderabad, India",
-    department: "Professional Services"
-  },
-  {
-    id: "cybersecurity-analyst",
-    title: "Cybersecurity Analyst",
-    location: "Plainsboro, NJ",
-    department: "Cybersecurity & Risk"
-  }
-]
+const fetchJobs = async () => {
+  const { data, error } = await supabase.from("jobs").select("*").order("created_at", { ascending: false });
+  if (error) throw new Error(error.message);
+  return data;
+};
 
 export default function CareersPage() {
+  const { data: jobOpenings, isLoading, error } = useQuery({
+    queryKey: ["jobs"],
+    queryFn: fetchJobs,
+  });
+
   return (
     <PageLayout>
       <section className="section-padding bg-background">
@@ -49,25 +35,34 @@ export default function CareersPage() {
               <CardTitle>Current Openings</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-6">
-                {jobOpenings.map((job) => (
-                  <div key={job.id} className="flex flex-col md:flex-row items-start md:items-center justify-between p-4 border rounded-lg hover:bg-muted/50">
-                    <div>
-                      <h3 className="text-lg font-semibold text-primary">{job.title}</h3>
-                      <div className="flex items-center text-sm text-muted-foreground space-x-4 mt-1">
-                        <span>{job.department}</span>
-                        <span>•</span>
-                        <span>{job.location}</span>
+              {isLoading && <PageLoader />}
+              {error && <div className="text-center text-destructive">Failed to load job openings.</div>}
+              {jobOpenings && (
+                <div className="space-y-6">
+                  {jobOpenings.map((job) => (
+                    <div key={job.id} className="flex flex-col md:flex-row items-start md:items-center justify-between p-4 border rounded-lg hover:bg-muted/50">
+                      <div>
+                        <h3 className="text-lg font-semibold text-primary">{job.title}</h3>
+                        <div className="flex items-center text-sm text-muted-foreground space-x-4 mt-1">
+                          <span>{job.department}</span>
+                          <span>•</span>
+                          <span>{job.location}</span>
+                        </div>
                       </div>
+                      <Button className="mt-4 md:mt-0">Apply Now</Button>
                     </div>
-                    <Button className="mt-4 md:mt-0">Apply Now</Button>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                  {jobOpenings.length === 0 && (
+                    <div className="text-center py-8 text-muted-foreground">
+                      There are currently no open positions. Please check back later.
+                    </div>
+                  )}
+                </div>
+              )}
             </CardContent>
           </Card>
         </div>
       </section>
     </PageLayout>
-  )
+  );
 }
