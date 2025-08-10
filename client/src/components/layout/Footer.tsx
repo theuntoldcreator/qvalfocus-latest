@@ -12,7 +12,9 @@ export function Footer() {
           {/* Company Info */}
           <div className="lg:col-span-1">
             <div className="flex items-center mb-6">
-              <img src="/images/qvalfocus.png" alt="QvalFocus Logo" className="h-8 w-auto brightness-0 invert" />
+              <div className="bg-white p-2 rounded-md">
+                <img src="/images/qvalfocus.png" alt="QvalFocus Logo" className="h-8 w-auto" />
+              </div>
             </div>
             <p className="text-gray-300 mb-6">
               Transforming enterprises through strategic technology consulting and digital innovation.
