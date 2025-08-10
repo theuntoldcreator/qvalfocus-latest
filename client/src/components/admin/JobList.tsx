@@ -3,7 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Trash2 } from "lucide-react";
+import { Trash2, LinkIcon } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const fetchJobs = async () => {
@@ -51,6 +51,7 @@ export function JobList() {
               <TableHead>Title</TableHead>
               <TableHead>Department</TableHead>
               <TableHead>Location</TableHead>
+              <TableHead>Link</TableHead>
               <TableHead className="text-right">Actions</TableHead>
             </TableRow>
           </TableHeader>
@@ -60,6 +61,11 @@ export function JobList() {
                 <TableCell className="font-medium">{job.title}</TableCell>
                 <TableCell>{job.department}</TableCell>
                 <TableCell>{job.location}</TableCell>
+                <TableCell>
+                  <a href={job.application_link} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                    <LinkIcon className="h-4 w-4" />
+                  </a>
+                </TableCell>
                 <TableCell className="text-right">
                   <Button
                     variant="ghost"

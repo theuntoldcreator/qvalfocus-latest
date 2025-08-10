@@ -12,6 +12,7 @@ const jobSchema = z.object({
   title: z.string().min(2, "Title is required"),
   department: z.string().min(2, "Department is required"),
   location: z.string().min(2, "Location is required"),
+  application_link: z.string().url("Please enter a valid URL"),
 });
 
 type JobFormData = z.infer<typeof jobSchema>;
@@ -26,7 +27,7 @@ export function JobForm({ onSuccess }: { onSuccess: () => void }) {
   const { toast } = useToast();
   const form = useForm<JobFormData>({
     resolver: zodResolver(jobSchema),
-    defaultValues: { title: "", department: "", location: "" },
+    defaultValues: { title: "", department: "", location: "", application_link: "" },
   });
 
   const mutation = useMutation({
@@ -82,6 +83,19 @@ export function JobForm({ onSuccess }: { onSuccess: () => void }) {
               <FormLabel>Location</FormLabel>
               <FormControl>
                 <Input placeholder="e.g., Plainsboro, NJ (Hybrid)" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="application_link"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Application Link</FormLabel>
+              <FormControl>
+                <Input placeholder="https://example.com/apply/job-id" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

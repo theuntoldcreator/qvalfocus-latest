@@ -15,6 +15,7 @@ export default function CareersPage() {
   const { data: jobOpenings, isLoading, error } = useQuery({
     queryKey: ["jobs"],
     queryFn: fetchJobs,
+    refetchInterval: 300000, // 5 minutes
   });
 
   return (
@@ -49,7 +50,11 @@ export default function CareersPage() {
                           <span>{job.location}</span>
                         </div>
                       </div>
-                      <Button className="mt-4 md:mt-0">Apply Now</Button>
+                      <Button asChild className="mt-4 md:mt-0">
+                        <a href={job.application_link} target="_blank" rel="noopener noreferrer">
+                          Apply Now
+                        </a>
+                      </Button>
                     </div>
                   ))}
                   {jobOpenings.length === 0 && (
