@@ -92,85 +92,108 @@ export const INDUSTRIES = [
 
 export const CASE_STUDIES = [
   {
-    id: "global-bank-transformation",
-    slug: "global-bank-cloud-transformation",
-    title: "Global Bank Reduces Infrastructure Costs by 45%",
-    industry: "Financial Services",
-    description: "Complete cloud migration and modernization of core banking systems for a Fortune 100 financial institution.",
-    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=600",
+    id: "staffing-sdet-automation",
+    slug: "staffing-sdet-automation-engineers",
+    title: "Scaling QA Excellence with Elite Automation Engineers",
+    industry: "Staffing Success",
+    description: "A leading FinTech firm accelerated their testing cycles by integrating a team of highly skilled Automation Engineers and SDETs from QvalFocus.",
+    image: "https://images.unsplash.com/photo-1556742212-5b321f3c261b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=600",
     metrics: [
-      { label: "Cost Reduction", value: "45%" },
-      { label: "Uptime SLA", value: "99.99%" }
+      { label: "Faster Regression", value: "80%" },
+      { label: "Test Coverage", value: "95%" }
     ],
-    content: `
-      <p class="lead">A Fortune 100 financial institution faced escalating infrastructure costs and operational inefficiencies with its legacy, on-premise data centers. The bank needed to modernize its core banking systems to improve agility, reduce costs, and enhance security and compliance.</p>
-      <h3>The Challenge</h3>
-      <p>The primary challenges included high capital expenditures on hardware, slow deployment cycles for new services, and the inability to scale resources dynamically to meet fluctuating market demands. The existing infrastructure was also a bottleneck for adopting modern DevOps practices and AI-driven analytics.</p>
-      <h3>Our Solution</h3>
-      <p>QvalFocus devised a multi-phase cloud transformation strategy focused on migrating the bank's critical applications to a hybrid cloud environment. Our solution included:</p>
-      <ul>
-        <li><strong>Cloud Readiness Assessment:</strong> A thorough analysis of over 500 applications to determine migration priority and methodology (Re-host, Re-platform, Re-factor).</li>
-        <li><strong>Platform Engineering:</strong> We built a secure and compliant landing zone on AWS, incorporating infrastructure-as-code (IaC) with Terraform and a CI/CD pipeline with Jenkins and GitLab.</li>
-        <li><strong>Application Modernization:</strong> Key monolithic applications were re-architected into microservices and containerized using Docker and Kubernetes, enabling greater scalability and resilience.</li>
-        <li><strong>Cost Optimization:</strong> We implemented a FinOps framework with real-time cost monitoring, reserved instance planning, and automated rightsizing, leading to significant and sustained cost savings.</li>
-      </ul>
-      <h3>The Results</h3>
-      <p>The transformation delivered substantial business value within 24 months. The 45% reduction in infrastructure costs translated to over $200 million in annual savings. The move to a 99.99% uptime SLA drastically reduced service disruptions, and the agile development environment cut the time-to-market for new financial products by 60%.</p>
-    `
+    content: "<p>A rapidly growing FinTech firm needed to scale its QA capabilities without compromising quality. QvalFocus delivered a team of highly skilled Automation Engineers and SDETs who integrated seamlessly, automated the regression suite, and accelerated their testing cycles, allowing for faster and more reliable product releases.</p>"
   },
   {
-    id: "hospital-ai-implementation",
-    slug: "hospital-network-ai-patient-care",
-    title: "Hospital Network Accelerates Patient Care with AI",
-    industry: "Healthcare", 
-    description: "AI-powered diagnostic platform and EHR integration across 50+ hospital locations.",
-    image: "https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=600",
+    id: "staffing-data-analytics",
+    slug: "staffing-data-analytics-experts",
+    title: "Unlocking Insights with Expert Data Analytics Talent",
+    industry: "Staffing Success",
+    description: "A major retail company transformed its decision-making process by leveraging expert Data Analysts and Scientists provided by QvalFocus.",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=600",
     metrics: [
-      { label: "Faster Diagnosis", value: "60%" },
-      { label: "Locations", value: "50+" }
+      { label: "Sales Uplift", value: "30%" },
+      { label: "Faster Reporting", value: "50%" }
     ],
-    content: `
-      <p class="lead">A major hospital network sought to improve the speed and accuracy of patient diagnoses while streamlining clinical workflows. Their existing Electronic Health Record (EHR) system lacked advanced analytical capabilities, leading to delays and administrative overhead.</p>
-      <h3>The Challenge</h3>
-      <p>The key challenge was to integrate a sophisticated AI diagnostic tool with their legacy EHR system across more than 50 hospital and clinic locations, all while ensuring strict HIPAA compliance and data security. The solution needed to be intuitive for clinicians and provide measurable improvements in patient outcomes.</p>
-      <h3>Our Solution</h3>
-      <p>Our team of healthcare technology experts developed and deployed a custom AI-powered diagnostic platform. The project involved:</p>
-      <ul>
-        <li><strong>HIPAA-Compliant Architecture:</strong> We designed a secure data pipeline on a private cloud to process sensitive patient data, ensuring full compliance with healthcare regulations.</li>
-        <li><strong>EHR Integration:</strong> We developed custom APIs to seamlessly integrate the AI platform with the network's existing EHR system, allowing for real-time data exchange.</li>
-        <li><strong>Machine Learning Models:</strong> We trained and validated machine learning models on anonymized data to assist radiologists and pathologists in identifying conditions from medical imaging with greater accuracy.</li>
-        <li><strong>Clinician Training:</strong> We conducted comprehensive training sessions for over 1,000 medical staff to ensure smooth adoption and effective use of the new platform.</li>
-      </ul>
-      <h3>The Results</h3>
-      <p>The new platform transformed the diagnostic process across the hospital network. It led to a 60% reduction in the average time to diagnosis for critical conditions. The system's integration into existing workflows was seamless, and it now supports over 50 locations, improving the quality of care for thousands of patients daily.</p>
-    `
+    content: "<p>A major retail company struggled to make sense of its vast customer data. QvalFocus provided expert Data Analysts and Scientists who built powerful dashboards and predictive models, transforming their decision-making process and leading to significant gains in customer segmentation and inventory management.</p>"
   },
   {
-    id: "smart-factory-transformation",
-    slug: "smart-factory-iot-efficiency",
-    title: "Smart Factory Transformation Increases Efficiency 40%",
-    industry: "Manufacturing",
-    description: "IoT sensors, predictive maintenance, and real-time analytics across global manufacturing operations.",
-    image: "https://images.unsplash.com/photo-1565514020179-026b92b84bb6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=600",
+    id: "staffing-sde",
+    slug: "staffing-software-development-engineers",
+    title: "Accelerating Development with Top-Tier SDEs",
+    industry: "Staffing Success",
+    description: "A startup launched their new SaaS platform ahead of schedule by augmenting their team with senior Software Development Engineers from QvalFocus.",
+    image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=600",
     metrics: [
-      { label: "Efficiency Gain", value: "40%" },
-      { label: "Less Downtime", value: "85%" }
+      { label: "Faster Launch", value: "2x" },
+      { label: "Cost Savings", value: "40%" }
     ],
-    content: `
-      <p class="lead">A global leader in industrial manufacturing was facing increased competition and rising operational costs. Their traditional manufacturing processes lacked real-time visibility, leading to unexpected equipment downtime and inefficiencies in the supply chain.</p>
-      <h3>The Challenge</h3>
-      <p>The goal was to implement an Industry 4.0 solution across their global operations to create a 'smart factory' ecosystem. This required integrating thousands of IoT devices, collecting massive amounts of data, and turning that data into actionable insights for predictive maintenance and process optimization.</p>
-      <h3>Our Solution</h3>
-      <p>QvalFocus implemented an end-to-end IoT and data analytics solution. Key components of our approach were:</p>
-      <ul>
-        <li><strong>IoT Sensor Deployment:</strong> We retrofitted existing machinery with over 10,000 IoT sensors to collect data on temperature, vibration, and performance.</li>
-        <li><strong>Data Platform on Azure:</strong> We built a scalable data lake and analytics platform using Azure IoT Hub, Azure Data Factory, and Databricks to process and analyze the incoming data streams.</li>
-        <li><strong>Predictive Maintenance Models:</strong> Our data scientists developed machine learning models that could predict equipment failure with 95% accuracy, allowing for proactive maintenance.</li>
-        <li><strong>Real-Time Dashboards:</strong> We created interactive Power BI dashboards for plant managers to monitor production lines in real-time, identify bottlenecks, and optimize output.</li>
-      </ul>
-      <h3>The Results</h3>
-      <p>The smart factory initiative yielded remarkable results. Overall equipment effectiveness (OEE) increased by 40%, and unplanned downtime was reduced by an incredible 85%. The real-time analytics provided by the new platform empowered the company to make smarter, data-driven decisions, solidifying their position as an industry innovator.</p>
-    `
+    content: "<p>A startup needed to accelerate the development of their flagship SaaS product. QvalFocus sourced a team of senior Software Development Engineers who hit the ground running, integrated with the core team, and were instrumental in the successful, early launch of the platform.</p>"
+  },
+  {
+    id: "staffing-scrum-pm",
+    slug: "staffing-scrum-masters-product-managers",
+    title: "Driving Agile Maturity with Expert Scrum Masters & PMs",
+    industry: "Staffing Success",
+    description: "A healthcare tech firm revitalized its agile framework and improved product delivery with experienced Scrum Masters and Product Managers from QvalFocus.",
+    image: "https://images.unsplash.com/photo-1587440871875-191322ee64b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=600",
+    metrics: [
+      { label: "On-time Delivery", value: "90%" },
+      { label: "Team Morale", value: "Up 50%" }
+    ],
+    content: "<p>A healthcare technology company was struggling with its agile processes. QvalFocus provided experienced Scrum Masters and Product Managers who introduced best practices, facilitated better communication, and helped the client's teams become more self-organizing and efficient, leading to higher morale and consistent on-time delivery.</p>"
+  },
+  {
+    id: "staffing-opentext",
+    slug: "staffing-opentext-consultants",
+    title: "Mastering Content Management with OpenText Experts",
+    industry: "Staffing Success",
+    description: "A large manufacturing firm optimized its complex OpenText ecosystem by partnering with specialized consultants from QvalFocus.",
+    image: "https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=600",
+    metrics: [
+      { label: "Workflow Efficiency", value: "50%" },
+      { label: "Compliance", value: "100%" }
+    ],
+    content: "<p>A large manufacturing firm needed to optimize its complex OpenText ecosystem. QvalFocus provided specialized OpenText consultants who upgraded their platform, automated workflows, and improved content governance across the enterprise, resulting in reduced manual effort and better compliance.</p>"
+  },
+  {
+    id: "solution-agile-transformation",
+    slug: "solution-agile-transformation",
+    title: "A Financial Firm's Successful Agile Transformation",
+    industry: "Solution Delivery",
+    description: "QvalFocus guided a traditional financial services company through a complete Agile transformation, increasing adaptability and accelerating product delivery.",
+    image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=600",
+    metrics: [
+      { label: "Faster Releases", value: "3x" },
+      { label: "Collaboration", value: "Enhanced" }
+    ],
+    content: "<p>QvalFocus guided a traditional financial services company through a complete Agile transformation. We implemented Scrum and Kanban frameworks that broke down silos, increased adaptability, and accelerated product delivery, fostering a culture of continuous improvement.</p>"
+  },
+  {
+    id: "solution-qa-automation",
+    slug: "solution-qa-and-automation",
+    title: "Building a World-Class QA & Automation Practice",
+    industry: "Solution Delivery",
+    description: "An e-commerce leader partnered with QvalFocus to build a comprehensive QA solution, resulting in higher quality releases and fewer production bugs.",
+    image: "https://images.unsplash.com/photo-1516321497487-e288fb19713f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=600",
+    metrics: [
+      { label: "Bug Reduction", value: "95%" },
+      { label: "Automation", value: "Full Suite" }
+    ],
+    content: "<p>An e-commerce giant partnered with QvalFocus to build a comprehensive QA and test automation solution from the ground up. Our team designed and implemented a full testing strategy, resulting in higher quality releases and a dramatic reduction in production bugs.</p>"
+  },
+  {
+    id: "solution-support-maintenance",
+    slug: "solution-support-and-maintenance",
+    title: "Ensuring 24/7 Reliability with Proactive Support",
+    industry: "Solution Delivery",
+    description: "QvalFocus provides a dedicated 24/7 support and maintenance team for a mission-critical logistics platform, ensuring maximum uptime and rapid incident response.",
+    image: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=600",
+    metrics: [
+      { label: "Uptime", value: "99.99%" },
+      { label: "Faster Resolution", value: "80%" }
+    ],
+    content: "<p>QvalFocus provides a dedicated 24/7 support and maintenance team for a mission-critical logistics platform. Our solution ensures maximum uptime, rapid incident response, and continuous performance optimization, giving our client peace of mind and operational stability.</p>"
   }
 ]
 
