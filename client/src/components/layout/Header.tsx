@@ -14,6 +14,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Input } from "@/components/ui/input"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import { useAuth } from "@/context/AuthProvider"
+import { Auth } from "@supabase/auth-ui-react"
+import { supabase } from "@/integrations/supabase/client"
 
 const TopBarItems = ({
   selectedCountry,
@@ -85,9 +87,34 @@ const TopBarItems = ({
           </DropdownMenuContent>
         </DropdownMenu>
       ) : (
-        <Button asChild variant="outline" size="sm">
-          <Link href="/login">Login</Link>
-        </Button>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button variant="outline" size="sm">Login</Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader className="items-center">
+              <img src="/images/qvalfocus.png" alt="QvalFocus Logo" className="h-10 w-auto mb-4 dark:brightness-0 dark:invert" />
+              <DialogTitle className="text-center text-2xl">Admin Portal</DialogTitle>
+            </DialogHeader>
+            <div className="px-6 pb-6">
+              <Auth
+                supabaseClient={supabase}
+                appearance={{
+                  className: {
+                    button: "bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 inline-flex items-center justify-center rounded-md text-sm font-medium w-full transition-colors",
+                    input: "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                    label: "text-sm font-medium leading-none mb-2 block",
+                    message: "text-sm text-destructive mt-2",
+                    anchor: "text-sm text-primary hover:underline",
+                  },
+                }}
+                providers={[]}
+                view="sign_in"
+                showLinks={true}
+              />
+            </div>
+          </DialogContent>
+        </Dialog>
       )}
     </>
   )

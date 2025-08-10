@@ -1,11 +1,10 @@
 import { useAuth } from "@/context/AuthProvider";
-import { useLocation, Redirect } from "wouter";
+import { Redirect } from "wouter";
 import { PageLoader } from "@/components/common/PageLoader";
 import { useEffect, useState } from "react";
 
 export function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { session } = useAuth();
-  const [location] = useLocation();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -19,7 +18,7 @@ export function ProtectedRoute({ children }: { children: React.ReactNode }) {
   }
 
   if (!session) {
-    return <Redirect to={`/login?redirect=${location}`} />;
+    return <Redirect to="/" />;
   }
 
   return <>{children}</>;

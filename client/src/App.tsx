@@ -21,7 +21,6 @@ const InsightDetailPage = lazy(() => import("@/pages/InsightDetailPage"));
 const CareersPage = lazy(() => import("@/pages/CareersPage"));
 const ProjectSolutionPage = lazy(() => import("@/pages/ProjectSolutionPage"));
 const StaffingSolutionPage = lazy(() => import("@/pages/StaffingSolutionPage"));
-const LoginPage = lazy(() => import("@/pages/LoginPage"));
 const AdminPage = lazy(() => import("@/pages/AdminPage"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 
@@ -38,7 +37,6 @@ function Router() {
       <Route path="/careers" component={CareersPage} />
       <Route path="/project-solution" component={ProjectSolutionPage} />
       <Route path="/staffing-solution" component={StaffingSolutionPage} />
-      <Route path="/login" component={LoginPage} />
       <Route path="/admin">
         <ProtectedRoute>
           <AdminPage />
