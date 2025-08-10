@@ -17,6 +17,8 @@ const CaseStudyDetailPage = lazy(() => import("@/pages/CaseStudyDetailPage"));
 const InsightsPage = lazy(() => import("@/pages/InsightsPage"));
 const InsightDetailPage = lazy(() => import("@/pages/InsightDetailPage"));
 const CareersPage = lazy(() => import("@/pages/CareersPage"));
+const ProjectSolutionPage = lazy(() => import("@/pages/ProjectSolutionPage"));
+const StaffingSolutionPage = lazy(() => import("@/pages/StaffingSolutionPage"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 
 function Router() {
@@ -30,6 +32,8 @@ function Router() {
       <Route path="/insights" component={InsightsPage} />
       <Route path="/insights/:slug" component={InsightDetailPage} />
       <Route path="/careers" component={CareersPage} />
+      <Route path="/project-solution" component={ProjectSolutionPage} />
+      <Route path="/staffing-solution" component={StaffingSolutionPage} />
       <Route component={NotFound} />
     </Switch>
   );

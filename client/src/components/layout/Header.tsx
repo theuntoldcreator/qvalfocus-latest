@@ -12,7 +12,7 @@ import {
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
-import { SERVICES } from "@/lib/constants"
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 
 const TopBarItems = ({
   selectedCountry,
@@ -77,6 +77,8 @@ export function Header() {
     setMobileMenuOpen(false)
   }
 
+  const closeMobileMenu = () => setMobileMenuOpen(false)
+
   return (
     <header className="gradient-hero sticky top-0 z-50">
       {/* Top Bar */}
@@ -102,7 +104,23 @@ export function Header() {
         {/* Desktop Navigation */}
         <div className="hidden items-center space-x-6 md:flex">
           <Button asChild variant="ghost"><Link href="/about">About Us</Link></Button>
-          <Button asChild variant="ghost"><Link href={`${homePath}#services`}>Information Technology</Link></Button>
+          
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="flex items-center gap-1">
+                Services <ChevronDown className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem asChild>
+                <Link href="/project-solution">Project Solution</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/staffing-solution">Staffing Solution</Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
           <Button asChild variant="ghost"><Link href={`${homePath}#industries`}>Life Sciences</Link></Button>
           <Button asChild variant="ghost"><Link href="/insights">Insights</Link></Button>
           <Button asChild variant="ghost"><Link href="/careers">Careers</Link></Button>
@@ -134,16 +152,29 @@ export function Header() {
                 </div>
                 <div className="flex-1 p-4">
                   <div className="flex flex-col space-y-2">
-                    <Button asChild variant="ghost" className="justify-start"><Link href="/about">About Us</Link></Button>
-                    <Button asChild variant="ghost" className="justify-start"><Link href={`${homePath}#services`}>Information Technology</Link></Button>
-                    <Button asChild variant="ghost" className="justify-start"><Link href={`${homePath}#industries`}>Life Sciences</Link></Button>
-                    <Button asChild variant="ghost" className="justify-start"><Link href="/insights">Insights</Link></Button>
-                    <Button asChild variant="ghost" className="justify-start"><Link href="/careers">Careers</Link></Button>
-                    <Button asChild variant="ghost" className="justify-start"><Link href={`${homePath}#contact`}>Contact Us</Link></Button>
+                    <Button asChild variant="ghost" className="justify-start" onClick={closeMobileMenu}><Link href="/about">About Us</Link></Button>
+                    
+                    <Collapsible>
+                      <CollapsibleTrigger asChild>
+                        <Button variant="ghost" className="w-full justify-between">
+                          <span>Services</span>
+                          <ChevronDown className="h-4 w-4" />
+                        </Button>
+                      </CollapsibleTrigger>
+                      <CollapsibleContent className="pl-4">
+                        <Button asChild variant="ghost" className="w-full justify-start" onClick={closeMobileMenu}><Link href="/project-solution">Project Solution</Link></Button>
+                        <Button asChild variant="ghost" className="w-full justify-start" onClick={closeMobileMenu}><Link href="/staffing-solution">Staffing Solution</Link></Button>
+                      </CollapsibleContent>
+                    </Collapsible>
+
+                    <Button asChild variant="ghost" className="justify-start" onClick={closeMobileMenu}><Link href={`${homePath}#industries`}>Life Sciences</Link></Button>
+                    <Button asChild variant="ghost" className="justify-start" onClick={closeMobileMenu}><Link href="/insights">Insights</Link></Button>
+                    <Button asChild variant="ghost" className="justify-start" onClick={closeMobileMenu}><Link href="/careers">Careers</Link></Button>
+                    <Button asChild variant="ghost" className="justify-start" onClick={closeMobileMenu}><Link href={`${homePath}#contact`}>Contact Us</Link></Button>
                   </div>
                 </div>
                 <div className="border-t p-4">
-                  <Button asChild className="w-full"><Link href={`${homePath}#contact`}>Contact Us</Link></Button>
+                  <Button asChild className="w-full" onClick={closeMobileMenu}><Link href={`${homePath}#contact`}>Contact Us</Link></Button>
                 </div>
               </div>
             </SheetContent>
