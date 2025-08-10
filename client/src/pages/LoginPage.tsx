@@ -3,7 +3,7 @@ import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/context/AuthProvider";
 import { Redirect } from "wouter";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function LoginPage() {
   const { session } = useAuth();
@@ -19,12 +19,17 @@ export default function LoginPage() {
       <Card className="w-full max-w-md mx-4">
         <CardHeader>
           <CardTitle className="text-center text-2xl">Admin Portal</CardTitle>
+          <CardDescription className="text-center pt-2">
+            Please sign in to manage website content.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <Auth
             supabaseClient={supabase}
             appearance={{ theme: ThemeSupa }}
             providers={[]}
+            view="sign_in"
+            showLinks={false}
             theme="light"
           />
         </CardContent>
