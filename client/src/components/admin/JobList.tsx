@@ -64,9 +64,13 @@ export function JobList({ onEdit }: { onEdit: (job: Job) => void }) {
                 <TableCell>{job.department}</TableCell>
                 <TableCell>{job.location}</TableCell>
                 <TableCell>
-                  <a href={job.application_link} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-                    <LinkIcon className="h-4 w-4" />
-                  </a>
+                  {job.application_link ? (
+                    <a href={job.application_link} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                      <LinkIcon className="h-4 w-4" />
+                    </a>
+                  ) : (
+                    <span className="text-muted-foreground">-</span>
+                  )}
                 </TableCell>
                 <TableCell className="text-right">
                   <Button variant="ghost" size="icon" onClick={() => onEdit(job)}>
@@ -83,7 +87,7 @@ export function JobList({ onEdit }: { onEdit: (job: Job) => void }) {
                         <AlertDialogTitle>Are you sure?</AlertDialogTitle>
                         <AlertDialogDescription>
                           This action cannot be undone. This will permanently delete the "{job.title}" job listing.
-                        </AlertDialogDescription>
+                        </di_AlertDialogDescription>
                       </AlertDialogHeader>
                       <AlertDialogFooter>
                         <AlertDialogCancel>Cancel</AlertDialogCancel>

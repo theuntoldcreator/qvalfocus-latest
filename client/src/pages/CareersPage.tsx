@@ -20,7 +20,7 @@ export default function CareersPage() {
   const [activeDepartment, setActiveDepartment] = useState("All");
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
 
-  const departments = ["All", ...new Set(jobs?.map(job => job.department).filter(Boolean) as string[])];
+  const departments = ["All", ...Array.from(new Set(jobs?.map(job => job.department).filter(Boolean) as string[]))];
 
   const filteredJobs = jobs?.filter(job => 
     activeDepartment === "All" || job.department === activeDepartment
