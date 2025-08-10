@@ -87,7 +87,7 @@ export function ApplicationForm({ job, onSuccess }: { job: Job; onSuccess: () =>
           <FormField name="phone" control={form.control} render={({ field }) => (<FormItem><FormControl><Input placeholder="Your Phone" type="tel" {...field} /></FormControl><FormMessage /></FormItem>)} />
         </div>
         <FormField name="coverLetter" control={form.control} render={({ field }) => (<FormItem><FormControl><Textarea placeholder="Why are you a good fit?" {...field} /></FormControl><FormMessage /></FormItem>)} />
-        <FormField name="resume" control={form.control} render={({ field: { onChange, ...fieldProps } }) => (
+        <FormField name="resume" control={form.control} render={({ field: { value, onChange, ...fieldProps } }) => (
           <FormItem>
             <FormLabel>Resume</FormLabel>
             <FormControl>
