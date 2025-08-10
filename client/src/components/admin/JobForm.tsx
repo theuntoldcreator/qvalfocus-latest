@@ -80,25 +80,27 @@ export function JobForm({ jobToEdit, onSuccess }: { jobToEdit?: Job | null; onSu
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <FormField name="title" control={form.control} render={({ field }) => (
-          <FormItem><FormLabel>Job Title</FormLabel><FormControl><Input placeholder="e.g., Senior Cloud Engineer" {...field} /></FormControl><FormMessage /></FormItem>
-        )} />
-        <FormField name="department" control={form.control} render={({ field }) => (
-          <FormItem><FormLabel>Department</FormLabel><FormControl><Input placeholder="e.g., Engineering" {...field} /></FormControl><FormMessage /></FormItem>
-        )} />
-        <FormField name="location" control={form.control} render={({ field }) => (
-          <FormItem><FormLabel>Location</FormLabel><FormControl><Input placeholder="e.g., Remote, US" {...field} /></FormControl><FormMessage /></FormItem>
-        )} />
-        <FormField name="employment_type" control={form.control} render={({ field }) => (
-          <FormItem><FormLabel>Employment Type</FormLabel><Select onValueChange={field.onChange} defaultValue={field.value}><FormControl><SelectTrigger><SelectValue placeholder="Select an employment type" /></SelectTrigger></FormControl><SelectContent><SelectItem value="Full-Time">Full-Time</SelectItem><SelectItem value="Contract">Contract</SelectItem><SelectItem value="Part-Time">Part-Time</SelectItem><SelectItem value="Internship">Internship</SelectItem></SelectContent></Select><FormMessage /></FormItem>
-        )} />
-        <FormField name="description" control={form.control} render={({ field }) => (
-          <FormItem><FormLabel>Description</FormLabel><FormControl><Textarea placeholder="Provide a short description of the job..." {...field} /></FormControl><FormMessage /></FormItem>
-        )} />
-        <FormField name="application_link" control={form.control} render={({ field }) => (
-          <FormItem><FormLabel>External Application Link</FormLabel><FormControl><Input placeholder="https://example.com/apply" {...field} /></FormControl><p className="text-sm text-muted-foreground mt-1">Leave blank to use the internal application form.</p><FormMessage /></FormItem>
-        )} />
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <FormField name="title" control={form.control} render={({ field }) => (
+            <FormItem><FormLabel>Job Title</FormLabel><FormControl><Input placeholder="e.g., Senior Cloud Engineer" {...field} /></FormControl><FormMessage /></FormItem>
+          )} />
+          <FormField name="department" control={form.control} render={({ field }) => (
+            <FormItem><FormLabel>Department</FormLabel><FormControl><Input placeholder="e.g., Engineering" {...field} /></FormControl><FormMessage /></FormItem>
+          )} />
+          <FormField name="location" control={form.control} render={({ field }) => (
+            <FormItem><FormLabel>Location</FormLabel><FormControl><Input placeholder="e.g., Remote, US" {...field} /></FormControl><FormMessage /></FormItem>
+          )} />
+          <FormField name="employment_type" control={form.control} render={({ field }) => (
+            <FormItem><FormLabel>Employment Type</FormLabel><Select onValueChange={field.onChange} defaultValue={field.value}><FormControl><SelectTrigger><SelectValue placeholder="Select an employment type" /></SelectTrigger></FormControl><SelectContent><SelectItem value="Full-Time">Full-Time</SelectItem><SelectItem value="Contract">Contract</SelectItem><SelectItem value="Part-Time">Part-Time</SelectItem><SelectItem value="Internship">Internship</SelectItem></SelectContent></Select><FormMessage /></FormItem>
+          )} />
+          <FormField name="description" control={form.control} render={({ field }) => (
+            <FormItem className="md:col-span-2"><FormLabel>Description</FormLabel><FormControl><Textarea placeholder="Provide a short description of the job..." rows={5} {...field} /></FormControl><FormMessage /></FormItem>
+          )} />
+          <FormField name="application_link" control={form.control} render={({ field }) => (
+            <FormItem className="md:col-span-2"><FormLabel>External Application Link</FormLabel><FormControl><Input placeholder="https://example.com/apply" {...field} /></FormControl><p className="text-sm text-muted-foreground mt-1">Leave blank to use the internal application form.</p><FormMessage /></FormItem>
+          )} />
+        </div>
         <Button type="submit" disabled={isPending} className="w-full">
           {isPending ? "Saving..." : isEditMode ? "Update Job" : "Save Job"}
         </Button>

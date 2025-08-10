@@ -52,7 +52,7 @@ export default function AdminPage() {
               <DialogTrigger asChild>
                 <Button onClick={handleAddNew}>Add New Job</Button>
               </DialogTrigger>
-              <DialogContent>
+              <DialogContent className="sm:max-w-2xl">
                 <DialogHeader>
                   <DialogTitle>{jobToEdit ? "Edit Job Listing" : "Add New Job Listing"}</DialogTitle>
                 </DialogHeader>
