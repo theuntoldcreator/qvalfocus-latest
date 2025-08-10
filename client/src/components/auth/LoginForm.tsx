@@ -83,11 +83,6 @@ export function LoginForm({ onSuccess }: { onSuccess?: () => void }) {
         <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
           {form.formState.isSubmitting ? "Signing In..." : "Sign In"}
         </Button>
-        <div className="text-center text-sm">
-          <button type="button" className="text-primary hover:underline underline-offset-4">
-            Forgot your password?
-          </button>
-        </div>
       </form>
     </Form>
   );

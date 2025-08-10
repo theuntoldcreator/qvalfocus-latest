@@ -56,7 +56,7 @@ export default function AdminPage() {
                 <DialogHeader>
                   <DialogTitle>{jobToEdit ? "Edit Job Listing" : "Add New Job Listing"}</DialogTitle>
                 </DialogHeader>
-                <JobForm jobToEdit={jobToETDIT} onSuccess={() => setDialogOpen(false)} />
+                <JobForm jobToEdit={jobToEdit} onSuccess={() => setDialogOpen(false)} />
               </DialogContent>
             </Dialog>
           </div>
