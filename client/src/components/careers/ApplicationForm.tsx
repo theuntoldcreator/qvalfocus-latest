@@ -10,8 +10,9 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { useToast } from "@/hooks/use-toast";
 import { Job } from "@/types";
 import { CheckCircle, UploadCloud, FileText, X } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, type DragEvent } from "react";
 import { Progress } from "@/components/ui/progress";
+import { cn } from "@/lib/utils";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 const ACCEPTED_FILE_TYPES = ["application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"];
@@ -58,7 +59,7 @@ export function ApplicationForm({ job, onSuccess }: { job: Job; onSuccess: () =>
   const form = useForm<ApplicationFormData>({ resolver: zodResolver(applicationSchema) });
   const [uploadProgress, setUploadProgress] = useState<number | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const resumeRef = form.register("resume");
+  const [isDragging, setIsDragging] = useState(false);
 
   const mutation = useMutation({
     mutationFn: submitApplication,
@@ -90,6 +91,39 @@ export function ApplicationForm({ job, onSuccess }: { job: Job; onSuccess: () =>
     }
   }, [mutation.isPending]);
 
+  const handleFileChange = (files: FileList | null) => {
+    if (files && files.length > 0) {
+      const file = files[0];
+      setSelectedFile(file);
+      form.setValue("resume", files, { shouldValidate: true });
+    }
+  };
+
+  const handleDragEnter = (e: DragEvent<HTMLLabelElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e: DragEvent<HTMLLabelElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+  };
+
+  const handleDragOver = (e: DragEvent<HTMLLabelElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  const handleDrop = (e: DragEvent<HTMLLabelElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+    const files = e.dataTransfer.files;
+    handleFileChange(files);
+  };
+
   const isSubmitting = mutation.isPending;
 
   if (mutation.isSuccess) {
@@ -119,14 +153,21 @@ export function ApplicationForm({ job, onSuccess }: { job: Job; onSuccess: () =>
           <FormField
             control={form.control}
             name="resume"
-            render={({ field: { onChange } }) => (
+            render={({ field: { onChange, ...fieldProps } }) => (
               <FormItem>
                 <FormLabel>Resume</FormLabel>
                 <FormControl>
                   <div>
                     <label
                       htmlFor="resume-upload"
-                      className="relative flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer bg-muted hover:bg-muted/80"
+                      className={cn(
+                        "relative flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer bg-muted hover:bg-muted/80 transition-colors",
+                        isDragging && "border-primary bg-primary/10"
+                      )}
+                      onDragEnter={handleDragEnter}
+                      onDragLeave={handleDragLeave}
+                      onDragOver={handleDragOver}
+                      onDrop={handleDrop}
                     >
                       {selectedFile ? (
                         <div className="flex items-center space-x-2 text-foreground">
@@ -142,7 +183,7 @@ export function ApplicationForm({ job, onSuccess }: { job: Job; onSuccess: () =>
                         <div className="flex flex-col items-center justify-center pt-5 pb-6">
                           <UploadCloud className="w-8 h-8 mb-2 text-muted-foreground" />
                           <p className="mb-2 text-sm text-muted-foreground">
-                            <span className="font-semibold">Click to upload</span>
+                            <span className="font-semibold">Click or drag to upload</span>
                           </p>
                           <p className="text-xs text-muted-foreground">PDF, DOC, DOCX (MAX. 5MB)</p>
                         </div>
@@ -153,14 +194,8 @@ export function ApplicationForm({ job, onSuccess }: { job: Job; onSuccess: () =>
                       type="file"
                       className="hidden"
                       accept=".pdf,.doc,.docx"
-                      {...resumeRef}
-                      onChange={(e) => {
-                        const file = e.target.files?.[0];
-                        if (file) {
-                          setSelectedFile(file);
-                          onChange(e.target.files);
-                        }
-                      }}
+                      {...fieldProps}
+                      onChange={(e) => handleFileChange(e.target.files)}
                     />
                     {selectedFile && !isSubmitting && (
                       <Button
