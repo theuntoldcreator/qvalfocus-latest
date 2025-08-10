@@ -10,7 +10,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Mail, Phone, CheckCircle } from "lucide-react"
 import { COMPANY_INFO, OFFICE_LOCATIONS } from "@/lib/constants"
 import { useToast } from "@/hooks/use-toast"
-import { submitContactForm } from "@/api/contact"
+import { supabase } from "@/integrations/supabase/client"
 
 const contactFormSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters"),
@@ -43,7 +43,18 @@ export function Contact() {
   })
 
   const mutation = useMutation({
-    mutationFn: submitContactForm,
+    mutationFn: async (data: ContactFormData) => {
+      const { error } = await supabase.from('contacts').insert({
+        first_name: data.firstName,
+        last_name: data.lastName,
+        email: data.email,
+        phone: data.phone,
+        company: data.company,
+        role: data.role,
+        help_message: data.help,
+      });
+      if (error) throw error;
+    },
     onSuccess: () => {
       toast({
         title: "Thanks for reaching out!",

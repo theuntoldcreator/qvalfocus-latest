@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form"
 import { useToast } from "@/hooks/use-toast"
-import { subscribeToNewsletter } from "@/api/newsletter"
+import { supabase } from "@/integrations/supabase/client"
 
 const newsletterSchema = z.object({
   email: z.string().email("Invalid email address")
@@ -25,7 +25,12 @@ export function Newsletter() {
   })
 
   const mutation = useMutation({
-    mutationFn: subscribeToNewsletter,
+    mutationFn: async (data: NewsletterFormData) => {
+      const { error } = await supabase.from('newsletter_subscriptions').insert({
+        email: data.email,
+      });
+      if (error) throw error;
+    },
     onSuccess: () => {
       toast({
         title: "Thank you for subscribing!",
