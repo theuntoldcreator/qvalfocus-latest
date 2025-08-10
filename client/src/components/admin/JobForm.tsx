@@ -5,6 +5,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 import { Job } from "@/types";
@@ -13,7 +15,9 @@ const jobSchema = z.object({
   title: z.string().min(2, "Title is required"),
   department: z.string().min(2, "Department is required"),
   location: z.string().min(2, "Location is required"),
-  application_link: z.string().url("Please enter a valid URL"),
+  employment_type: z.string().min(2, "Employment type is required"),
+  description: z.string().min(10, "Description must be at least 10 characters"),
+  application_link: z.string().url("Must be a valid URL").optional().or(z.literal('')),
 });
 
 type JobFormData = z.infer<typeof jobSchema>;
@@ -36,26 +40,26 @@ export function JobForm({ jobToEdit, onSuccess }: { jobToEdit?: Job | null; onSu
 
   const form = useForm<JobFormData>({
     resolver: zodResolver(jobSchema),
-    defaultValues: jobToEdit || { title: "", department: "", location: "", application_link: "" },
+    defaultValues: jobToEdit ? {
+      ...jobToEdit,
+      application_link: jobToEdit.application_link || "",
+      description: jobToEdit.description || "",
+      employment_type: jobToEdit.employment_type || "",
+    } : { 
+      title: "", 
+      department: "", 
+      location: "", 
+      application_link: "",
+      description: "",
+      employment_type: "",
+    },
   });
 
-  const addMutation = useMutation({
-    mutationFn: addJob,
+  const mutation = useMutation({
+    mutationFn: isEditMode ? updateJob : addJob,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["jobs"] });
-      toast({ title: "Success", description: "New job listing added." });
-      onSuccess();
-    },
-    onError: (err) => {
-      toast({ title: "Error", description: err.message, variant: "destructive" });
-    },
-  });
-
-  const updateMutation = useMutation({
-    mutationFn: updateJob,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["jobs"] });
-      toast({ title: "Success", description: "Job listing updated." });
+      toast({ title: "Success", description: `Job listing ${isEditMode ? 'updated' : 'added'}.` });
       onSuccess();
     },
     onError: (err) => {
@@ -64,70 +68,37 @@ export function JobForm({ jobToEdit, onSuccess }: { jobToEdit?: Job | null; onSu
   });
 
   const onSubmit = (data: JobFormData) => {
+    const submissionData = { ...data, application_link: data.application_link || null };
     if (isEditMode && jobToEdit) {
-      updateMutation.mutate({ ...data, id: jobToEdit.id });
+      mutation.mutate({ ...submissionData, id: jobToEdit.id });
     } else {
-      addMutation.mutate(data);
+      mutation.mutate(submissionData);
     }
   };
 
-  const isPending = addMutation.isPending || updateMutation.isPending;
+  const isPending = mutation.isPending;
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <FormField
-          control={form.control}
-          name="title"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Job Title</FormLabel>
-              <FormControl>
-                <Input placeholder="e.g., Senior Cloud Engineer" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="department"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Department</FormLabel>
-              <FormControl>
-                <Input placeholder="e.g., Platform Engineering" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="location"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Location</FormLabel>
-              <FormControl>
-                <Input placeholder="e.g., Plainsboro, NJ (Hybrid)" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="application_link"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Application Link</FormLabel>
-              <FormControl>
-                <Input placeholder="https://example.com/apply/job-id" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <FormField name="title" control={form.control} render={({ field }) => (
+          <FormItem><FormLabel>Job Title</FormLabel><FormControl><Input placeholder="e.g., Senior Cloud Engineer" {...field} /></FormControl><FormMessage /></FormItem>
+        )} />
+        <FormField name="department" control={form.control} render={({ field }) => (
+          <FormItem><FormLabel>Department</FormLabel><FormControl><Input placeholder="e.g., Engineering" {...field} /></FormControl><FormMessage /></FormItem>
+        )} />
+        <FormField name="location" control={form.control} render={({ field }) => (
+          <FormItem><FormLabel>Location</FormLabel><FormControl><Input placeholder="e.g., Remote, US" {...field} /></FormControl><FormMessage /></FormItem>
+        )} />
+        <FormField name="employment_type" control={form.control} render={({ field }) => (
+          <FormItem><FormLabel>Employment Type</FormLabel><Select onValueChange={field.onChange} defaultValue={field.value}><FormControl><SelectTrigger><SelectValue placeholder="Select an employment type" /></SelectTrigger></FormControl><SelectContent><SelectItem value="Full-Time">Full-Time</SelectItem><SelectItem value="Contract">Contract</SelectItem><SelectItem value="Part-Time">Part-Time</SelectItem><SelectItem value="Internship">Internship</SelectItem></SelectContent></Select><FormMessage /></FormItem>
+        )} />
+        <FormField name="description" control={form.control} render={({ field }) => (
+          <FormItem><FormLabel>Description</FormLabel><FormControl><Textarea placeholder="Provide a short description of the job..." {...field} /></FormControl><FormMessage /></FormItem>
+        )} />
+        <FormField name="application_link" control={form.control} render={({ field }) => (
+          <FormItem><FormLabel>External Application Link</FormLabel><FormControl><Input placeholder="https://example.com/apply" {...field} /></FormControl><p className="text-sm text-muted-foreground mt-1">Leave blank to use the internal application form.</p><FormMessage /></FormItem>
+        )} />
         <Button type="submit" disabled={isPending} className="w-full">
           {isPending ? "Saving..." : isEditMode ? "Update Job" : "Save Job"}
         </Button>
