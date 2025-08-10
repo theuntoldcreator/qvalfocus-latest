@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
+import { Job } from "@/types";
 
 const jobSchema = z.object({
   title: z.string().min(2, "Title is required"),
@@ -22,15 +23,23 @@ const addJob = async (job: JobFormData) => {
   if (error) throw new Error(error.message);
 };
 
-export function JobForm({ onSuccess }: { onSuccess: () => void }) {
+const updateJob = async (job: JobFormData & { id: string }) => {
+  const { id, ...updateData } = job;
+  const { error } = await supabase.from("jobs").update(updateData).eq("id", id);
+  if (error) throw new Error(error.message);
+};
+
+export function JobForm({ jobToEdit, onSuccess }: { jobToEdit?: Job | null; onSuccess: () => void }) {
   const queryClient = useQueryClient();
   const { toast } = useToast();
+  const isEditMode = !!jobToEdit;
+
   const form = useForm<JobFormData>({
     resolver: zodResolver(jobSchema),
-    defaultValues: { title: "", department: "", location: "", application_link: "" },
+    defaultValues: jobToEdit || { title: "", department: "", location: "", application_link: "" },
   });
 
-  const mutation = useMutation({
+  const addMutation = useMutation({
     mutationFn: addJob,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["jobs"] });
@@ -42,9 +51,27 @@ export function JobForm({ onSuccess }: { onSuccess: () => void }) {
     },
   });
 
+  const updateMutation = useMutation({
+    mutationFn: updateJob,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["jobs"] });
+      toast({ title: "Success", description: "Job listing updated." });
+      onSuccess();
+    },
+    onError: (err) => {
+      toast({ title: "Error", description: err.message, variant: "destructive" });
+    },
+  });
+
   const onSubmit = (data: JobFormData) => {
-    mutation.mutate(data);
+    if (isEditMode && jobToEdit) {
+      updateMutation.mutate({ ...data, id: jobToEdit.id });
+    } else {
+      addMutation.mutate(data);
+    }
   };
+
+  const isPending = addMutation.isPending || updateMutation.isPending;
 
   return (
     <Form {...form}>
@@ -101,8 +128,8 @@ export function JobForm({ onSuccess }: { onSuccess: () => void }) {
             </FormItem>
           )}
         />
-        <Button type="submit" disabled={mutation.isPending} className="w-full">
-          {mutation.isPending ? "Saving..." : "Save Job"}
+        <Button type="submit" disabled={isPending} className="w-full">
+          {isPending ? "Saving..." : isEditMode ? "Update Job" : "Save Job"}
         </Button>
       </form>
     </Form>

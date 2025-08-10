@@ -12,15 +12,27 @@ import {
 import { useState } from "react";
 import { JobForm } from "@/components/admin/JobForm";
 import { JobList } from "@/components/admin/JobList";
+import { Job } from "@/types";
 
 export default function AdminPage() {
   const { supabase } = useAuth();
   const [, setLocation] = useLocation();
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [jobToEdit, setJobToEdit] = useState<Job | null>(null);
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
     setLocation("/");
+  };
+
+  const handleAddNew = () => {
+    setJobToEdit(null);
+    setDialogOpen(true);
+  };
+
+  const handleEdit = (job: Job) => {
+    setJobToEdit(job);
+    setDialogOpen(true);
   };
 
   return (
@@ -38,17 +50,17 @@ export default function AdminPage() {
             <h2 className="text-2xl font-semibold">Manage Job Listings</h2>
             <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
               <DialogTrigger asChild>
-                <Button>Add New Job</Button>
+                <Button onClick={handleAddNew}>Add New Job</Button>
               </DialogTrigger>
               <DialogContent>
                 <DialogHeader>
-                  <DialogTitle>Add New Job Listing</DialogTitle>
+                  <DialogTitle>{jobToEdit ? "Edit Job Listing" : "Add New Job Listing"}</DialogTitle>
                 </DialogHeader>
-                <JobForm onSuccess={() => setDialogOpen(false)} />
+                <JobForm jobToEdit={jobToETDIT} onSuccess={() => setDialogOpen(false)} />
               </DialogContent>
             </Dialog>
           </div>
-          <JobList />
+          <JobList onEdit={handleEdit} />
         </div>
       </div>
     </PageLayout>
