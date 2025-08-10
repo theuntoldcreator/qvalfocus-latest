@@ -9,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 import { Job } from "@/types";
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, UploadCloud, FileText, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Progress } from "@/components/ui/progress";
 
@@ -57,6 +57,8 @@ export function ApplicationForm({ job, onSuccess }: { job: Job; onSuccess: () =>
   const { toast } = useToast();
   const form = useForm<ApplicationFormData>({ resolver: zodResolver(applicationSchema) });
   const [uploadProgress, setUploadProgress] = useState<number | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const resumeRef = form.register("resume");
 
   const mutation = useMutation({
     mutationFn: submitApplication,
@@ -72,7 +74,6 @@ export function ApplicationForm({ job, onSuccess }: { job: Job; onSuccess: () =>
     },
   });
 
-  // Effect to simulate progress
   useEffect(() => {
     if (mutation.isPending) {
       const timer = setInterval(() => {
@@ -114,23 +115,87 @@ export function ApplicationForm({ job, onSuccess }: { job: Job; onSuccess: () =>
             <FormField name="phone" control={form.control} render={({ field }) => (<FormItem><FormControl><Input placeholder="Your Phone" type="tel" {...field} /></FormControl><FormMessage /></FormItem>)} />
           </div>
           <FormField name="coverLetter" control={form.control} render={({ field }) => (<FormItem><FormControl><Textarea placeholder="Why are you a good fit?" {...field} /></FormControl><FormMessage /></FormItem>)} />
-          <FormField name="resume" control={form.control} render={({ field: { value, onChange, ...fieldProps } }) => (
-            <FormItem>
-              <FormLabel>Resume</FormLabel>
-              <FormControl>
-                <Input type="file" {...fieldProps} onChange={(e) => onChange(e.target.files)} accept=".pdf,.doc,.docx" />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )} />
+          
+          <FormField
+            control={form.control}
+            name="resume"
+            render={({ field: { onChange } }) => (
+              <FormItem>
+                <FormLabel>Resume</FormLabel>
+                <FormControl>
+                  <div>
+                    <label
+                      htmlFor="resume-upload"
+                      className="relative flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer bg-muted hover:bg-muted/80"
+                    >
+                      {selectedFile ? (
+                        <div className="flex items-center space-x-2 text-foreground">
+                          <FileText className="w-8 h-8" />
+                          <div className="text-left">
+                            <p className="font-semibold">{selectedFile.name}</p>
+                            <p className="text-xs text-muted-foreground">
+                              {(selectedFile.size / 1024).toFixed(2)} KB
+                            </p>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                          <UploadCloud className="w-8 h-8 mb-2 text-muted-foreground" />
+                          <p className="mb-2 text-sm text-muted-foreground">
+                            <span className="font-semibold">Click to upload</span>
+                          </p>
+                          <p className="text-xs text-muted-foreground">PDF, DOC, DOCX (MAX. 5MB)</p>
+                        </div>
+                      )}
+                    </label>
+                    <Input
+                      id="resume-upload"
+                      type="file"
+                      className="hidden"
+                      accept=".pdf,.doc,.docx"
+                      {...resumeRef}
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          setSelectedFile(file);
+                          onChange(e.target.files);
+                        }
+                      }}
+                    />
+                    {selectedFile && !isSubmitting && (
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        className="mt-2 text-destructive hover:text-destructive"
+                        onClick={() => {
+                          setSelectedFile(null);
+                          form.setValue("resume", null, { shouldValidate: true });
+                        }}
+                      >
+                        <X className="w-4 h-4 mr-2" />
+                        Remove file
+                      </Button>
+                    )}
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </fieldset>
 
         {isSubmitting && uploadProgress !== null && (
           <div className="space-y-2 pt-2">
+            <div className="flex justify-between items-center mb-1">
+              <p className="text-sm font-medium text-muted-foreground">
+                Uploading resume...
+              </p>
+              <p className="text-sm font-semibold text-primary">
+                {Math.round(uploadProgress)}%
+              </p>
+            </div>
             <Progress value={uploadProgress} className="w-full" />
-            <p className="text-sm text-muted-foreground text-center">
-              Uploading resume...
-            </p>
           </div>
         )}
 
