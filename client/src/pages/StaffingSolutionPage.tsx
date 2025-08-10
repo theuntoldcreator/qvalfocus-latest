@@ -69,7 +69,7 @@ export default function StaffingSolutionPage() {
                   At QvalFocus, our Talent Partnership model goes beyond traditional staffing. We immerse ourselves in your business to understand your long-term goals, company culture, and evolving skill needs. Acting as an extension of your HR and hiring teams, we offer consultative support, data-driven hiring strategies, and a flexible engagement model delivering not just people, but business-aligned solutions that drive sustained success.
                 </p>
               </CardContent>
-            </card>
+            </Card>
           </div>
         </div>
       </section>
