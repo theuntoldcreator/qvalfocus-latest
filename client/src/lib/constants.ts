@@ -124,7 +124,7 @@ export const CASE_STUDIES = [
     title: "Hospital Network Accelerates Patient Care with AI",
     industry: "Healthcare", 
     description: "AI-powered diagnostic platform and EHR integration across 50+ hospital locations.",
-    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=600",
+    image: "https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=600",
     metrics: [
       { label: "Faster Diagnosis", value: "60%" },
       { label: "Locations", value: "50+" }
