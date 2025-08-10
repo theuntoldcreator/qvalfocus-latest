@@ -17,20 +17,39 @@ const jobSchema = z.object({
   location: z.string().min(2, "Location is required"),
   employment_type: z.string().min(2, "Employment type is required"),
   description: z.string().min(10, "Description must be at least 10 characters"),
-  application_link: z.string().url("Must be a valid URL").optional().or(z.literal('')),
+  application_type: z.enum(["internal", "external"]),
+  application_link: z.string().optional(),
+}).superRefine((data, ctx) => {
+  if (data.application_type === 'external') {
+    const result = z.string().url().safeParse(data.application_link);
+    if (!result.success) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ['application_link'],
+        message: 'A valid URL is required for external applications.',
+      });
+    }
+  }
 });
 
 type JobFormData = z.infer<typeof jobSchema>;
 
-const addJob = async (job: JobFormData) => {
-  const { error } = await supabase.from("jobs").insert(job);
-  if (error) throw new Error(error.message);
-};
+const upsertJob = async (data: { jobData: JobFormData, id?: string }) => {
+  const { jobData, id } = data;
+  const submissionData = {
+    ...jobData,
+    application_link: jobData.application_type === 'external' ? jobData.application_link : null,
+  };
+  // We don't want to save application_type to the DB
+  const { application_type, ...dbData } = submissionData;
 
-const updateJob = async (job: JobFormData & { id: string }) => {
-  const { id, ...updateData } = job;
-  const { error } = await supabase.from("jobs").update(updateData).eq("id", id);
-  if (error) throw new Error(error.message);
+  if (id) {
+    const { error } = await supabase.from("jobs").update(dbData).eq("id", id);
+    if (error) throw new Error(error.message);
+  } else {
+    const { error } = await supabase.from("jobs").insert(dbData);
+    if (error) throw new Error(error.message);
+  }
 };
 
 export function JobForm({ jobToEdit, onSuccess }: { jobToEdit?: Job | null; onSuccess: () => void }) {
@@ -42,6 +61,7 @@ export function JobForm({ jobToEdit, onSuccess }: { jobToEdit?: Job | null; onSu
     resolver: zodResolver(jobSchema),
     defaultValues: jobToEdit ? {
       ...jobToEdit,
+      application_type: jobToEdit.application_link ? 'external' : 'internal',
       application_link: jobToEdit.application_link || "",
       description: jobToEdit.description || "",
       employment_type: jobToEdit.employment_type || "",
@@ -52,13 +72,17 @@ export function JobForm({ jobToEdit, onSuccess }: { jobToEdit?: Job | null; onSu
       application_link: "",
       description: "",
       employment_type: "",
+      application_type: "internal",
     },
   });
 
+  const applicationType = form.watch("application_type");
+
   const mutation = useMutation({
-    mutationFn: isEditMode ? updateJob : addJob,
+    mutationFn: upsertJob,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["jobs"] });
+      queryClient.invalidateQueries({ queryKey: ["applications"] });
       toast({ title: "Success", description: `Job listing ${isEditMode ? 'updated' : 'added'}.` });
       onSuccess();
     },
@@ -68,15 +92,8 @@ export function JobForm({ jobToEdit, onSuccess }: { jobToEdit?: Job | null; onSu
   });
 
   const onSubmit = (data: JobFormData) => {
-    const submissionData = { ...data, application_link: data.application_link || null };
-    if (isEditMode && jobToEdit) {
-      mutation.mutate({ ...submissionData, id: jobToEdit.id });
-    } else {
-      mutation.mutate(submissionData);
-    }
+    mutation.mutate({ jobData: data, id: jobToEdit?.id });
   };
-
-  const isPending = mutation.isPending;
 
   return (
     <Form {...form}>
@@ -97,12 +114,17 @@ export function JobForm({ jobToEdit, onSuccess }: { jobToEdit?: Job | null; onSu
           <FormField name="description" control={form.control} render={({ field }) => (
             <FormItem className="md:col-span-2"><FormLabel>Description</FormLabel><FormControl><Textarea placeholder="Provide a short description of the job..." rows={5} {...field} /></FormControl><FormMessage /></FormItem>
           )} />
-          <FormField name="application_link" control={form.control} render={({ field }) => (
-            <FormItem className="md:col-span-2"><FormLabel>External Application Link</FormLabel><FormControl><Input placeholder="https://example.com/apply" {...field} /></FormControl><p className="text-sm text-muted-foreground mt-1">Leave blank to use the internal application form.</p><FormMessage /></FormItem>
+          <FormField name="application_type" control={form.control} render={({ field }) => (
+            <FormItem><FormLabel>Application Type</FormLabel><Select onValueChange={field.onChange} defaultValue={field.value}><FormControl><SelectTrigger><SelectValue placeholder="Select an application type" /></SelectTrigger></FormControl><SelectContent><SelectItem value="internal">Internal (Resume Upload)</SelectItem><SelectItem value="external">External Link</SelectItem></SelectContent></Select><FormMessage /></FormItem>
           )} />
+          {applicationType === 'external' && (
+            <FormField name="application_link" control={form.control} render={({ field }) => (
+              <FormItem><FormLabel>External Application Link</FormLabel><FormControl><Input placeholder="https://example.com/apply" {...field} /></FormControl><FormMessage /></FormItem>
+            )} />
+          )}
         </div>
-        <Button type="submit" disabled={isPending} className="w-full">
-          {isPending ? "Saving..." : isEditMode ? "Update Job" : "Save Job"}
+        <Button type="submit" disabled={mutation.isPending} className="w-full">
+          {mutation.isPending ? "Saving..." : isEditMode ? "Update Job" : "Save Job"}
         </Button>
       </form>
     </Form>

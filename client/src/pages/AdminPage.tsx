@@ -13,6 +13,7 @@ import { useState } from "react";
 import { JobForm } from "@/components/admin/JobForm";
 import { JobList } from "@/components/admin/JobList";
 import { Job } from "@/types";
+import { ApplicationList } from "@/components/admin/ApplicationList";
 
 export default function AdminPage() {
   const { supabase } = useAuth();
@@ -45,22 +46,26 @@ export default function AdminPage() {
           </Button>
         </div>
 
-        <div className="space-y-8">
-          <div className="flex justify-between items-center">
-            <h2 className="text-2xl font-semibold">Manage Job Listings</h2>
-            <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-              <DialogTrigger asChild>
-                <Button onClick={handleAddNew}>Add New Job</Button>
-              </DialogTrigger>
-              <DialogContent className="sm:max-w-2xl">
-                <DialogHeader>
-                  <DialogTitle>{jobToEdit ? "Edit Job Listing" : "Add New Job Listing"}</DialogTitle>
-                </DialogHeader>
-                <JobForm jobToEdit={jobToEdit} onSuccess={() => setDialogOpen(false)} />
-              </DialogContent>
-            </Dialog>
+        <div className="space-y-12">
+          <div>
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-2xl font-semibold">Manage Job Listings</h2>
+              <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+                <DialogTrigger asChild>
+                  <Button onClick={handleAddNew}>Add New Job</Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-2xl">
+                  <DialogHeader>
+                    <DialogTitle>{jobToEdit ? "Edit Job Listing" : "Add New Job Listing"}</DialogTitle>
+                  </DialogHeader>
+                  <JobForm jobToEdit={jobToEdit} onSuccess={() => setDialogOpen(false)} />
+                </DialogContent>
+              </Dialog>
+            </div>
+            <JobList onEdit={handleEdit} />
           </div>
-          <JobList onEdit={handleEdit} />
+
+          <ApplicationList />
         </div>
       </div>
     </PageLayout>
